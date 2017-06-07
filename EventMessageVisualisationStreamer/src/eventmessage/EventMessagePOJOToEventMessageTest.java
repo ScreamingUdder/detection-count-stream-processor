@@ -36,4 +36,10 @@ public class EventMessagePOJOToEventMessageTest {
         EventMessagePOJOToEventMessage.convert(eventMessagePOJO);
     }
 
+    @org.junit.Test
+    public void convertPOJOWithNoDetectorsReturnsByteArray() {
+        byte[] result = EventMessagePOJOToEventMessage.convert(eventMessagePOJO);
+        assert result != null;
+    }
+
 }
