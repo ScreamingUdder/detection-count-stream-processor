@@ -29,4 +29,11 @@ public class EventMessagePOJOToEventMessageTest {
         EventMessagePOJOToEventMessage.convert(eventMessagePOJO);
     }
 
+    @org.junit.Test
+    public void runtimeExceptionWhenPulseTimeNegative() {
+        exception.expect(RuntimeException.class);
+        eventMessagePOJO.setPulseTime(-1);
+        EventMessagePOJOToEventMessage.convert(eventMessagePOJO);
+    }
+
 }
