@@ -22,6 +22,8 @@ public final class EventMessagePOJOToEventMessage {
 
         if (eventMessagePOJO.getMessageId() < 0) {
             throw new RuntimeException("MessageID cannot be lower than 0.");
+        } else if (eventMessagePOJO.getPulseTime() < 0) {
+            throw new RuntimeException("Pulse Time cannot be lower than 0.");
         }
         return null;
     }
