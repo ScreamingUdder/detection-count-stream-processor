@@ -19,7 +19,7 @@ public final class EventMessagePOJOToEventMessage {
      * @throws RuntimeException for invalid values.
      */
     public static byte[] convert(final EventMessagePOJO eventMessagePOJO) throws RuntimeException {
-
+        return null;
     }
 
 
