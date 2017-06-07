@@ -1,6 +1,8 @@
 package eventmessage;
 
 import org.junit.Before;
+import org.junit.Rule;
+import org.junit.rules.ExpectedException;
 
 /**
  * Created by STFC,ISIS on 07/06/2017.
@@ -16,4 +18,7 @@ public class EventMessagePOJOToEventMessageTest {
         eventMessagePOJO = new EventMessagePOJO(DEFAULT_MESSAGE_ID, DEFAULT_PULSE_TIME);
     }
 
+    @Rule
+    public ExpectedException exception = ExpectedException.none();
+    
 }
