@@ -19,6 +19,10 @@ public final class EventMessagePOJOToEventMessage {
      * @throws RuntimeException for invalid values.
      */
     public static byte[] convert(final EventMessagePOJO eventMessagePOJO) throws RuntimeException {
+
+        if (eventMessagePOJO.getMessageId() < 0) {
+            throw new RuntimeException("MessageID cannot be lower than 0.");
+        }
         return null;
     }
 
