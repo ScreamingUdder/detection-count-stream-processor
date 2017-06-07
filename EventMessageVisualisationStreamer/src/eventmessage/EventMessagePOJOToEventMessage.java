@@ -7,9 +7,9 @@ package eventmessage;
 public class EventMessagePOJOToEventMessage {
 
     /**
-     * Constructor
+     * Constructor. Not for use.
      */
-    public EventMessagePOJOToEventMessage() {
+    private EventMessagePOJOToEventMessage() {
     }
 
     /**
