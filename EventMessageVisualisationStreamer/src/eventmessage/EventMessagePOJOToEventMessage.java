@@ -5,4 +5,13 @@ package eventmessage;
  * Converts EventMessagePOJO to EventMessage
  */
 public class EventMessagePOJOToEventMessage {
+    private EventMessagePOJO eventMessagePOJO;
+
+    /**
+     * Constructor
+     * @param eventMessagePOJO EventMessagePOJO to be converted.
+     */
+    public EventMessagePOJOToEventMessage(final EventMessagePOJO eventMessagePOJO) {
+        this.eventMessagePOJO = eventMessagePOJO;
+    }
 }
