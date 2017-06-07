@@ -6,6 +6,7 @@ import org.junit.rules.ExpectedException;
 
 /**
  * Created by STFC,ISIS on 07/06/2017.
+ * Unit tests for EventMessagePOJO to EventMessage converter.
  */
 @SuppressWarnings("checkstyle:javadocmethod")
 public class EventMessagePOJOToEventMessageTest {
