@@ -16,8 +16,9 @@ public final class EventMessagePOJOToEventMessage {
      * Main method.
      * @param eventMessagePOJO The eventMessagePOJO to be converted.
      * @return Event Message FLatBuffer Byte Array.
+     * @throws RuntimeException for invalid values.
      */
-    public static byte[] convert(final EventMessagePOJO eventMessagePOJO) {
+    public static byte[] convert(final EventMessagePOJO eventMessagePOJO) throws RuntimeException {
 
     }
 
