@@ -24,6 +24,7 @@ public class EventMessagePOJOToEventMessageTest {
 
     @org.junit.Test
     public void runtimeExceptionWhenMessageIdNegative() {
+        exception.expect(RuntimeException.class);
         eventMessagePOJO.setMessageId(-1);
         EventMessagePOJOToEventMessage.convert(eventMessagePOJO);
     }
