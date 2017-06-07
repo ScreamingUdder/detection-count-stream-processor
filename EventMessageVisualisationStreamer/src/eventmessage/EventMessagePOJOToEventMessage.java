@@ -12,5 +12,14 @@ public class EventMessagePOJOToEventMessage {
     public EventMessagePOJOToEventMessage() {
     }
 
+    /**
+     * Main method.
+     * @param eventMessagePOJO The eventMessagePOJO to be converted.
+     * @return Event Message FLatBuffer Byte Array.
+     */
+    public static byte[] convert(final EventMessagePOJO eventMessagePOJO) {
+
+    }
+
 
 }
