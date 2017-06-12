@@ -4,6 +4,8 @@ import org.junit.Before;
 import org.junit.Rule;
 import org.junit.rules.ExpectedException;
 
+import static org.junit.Assert.assertNotNull;
+
 /**
  * Created by STFC,ISIS on 07/06/2017.
  * Unit tests for EventMessagePOJO to EventMessage converter.
@@ -39,7 +41,17 @@ public class EventMessagePOJOToEventMessageTest {
     @org.junit.Test
     public void convertPOJOWithNoDetectorsReturnsByteArray() {
         byte[] result = EventMessagePOJOToEventMessage.convert(eventMessagePOJO);
-        assert result != null;
+        assertNotNull("Should not be null", result);
+    }
+
+    @org.junit.Test
+    public void convertPOJOWithDetectorsReturnsByteArray() {
+        eventMessagePOJO.addDetector(1);
+        eventMessagePOJO.addDetector(2);
+        eventMessagePOJO.addDetector(3);
+
+        byte[] result = EventMessagePOJOToEventMessage.convert(eventMessagePOJO);
+        //assertNotNull("Should not be null", result);
     }
 
 }
