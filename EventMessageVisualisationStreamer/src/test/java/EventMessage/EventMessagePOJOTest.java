@@ -1,7 +1,8 @@
-package eventmessage;
+package EventMessage;
 
 import java.util.ArrayList;
 import java.util.List;
+import EventMessage.EventMessagePOJO;
 
 import static org.junit.Assert.assertEquals;
 

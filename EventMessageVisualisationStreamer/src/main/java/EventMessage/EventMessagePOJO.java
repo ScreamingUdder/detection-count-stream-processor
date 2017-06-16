@@ -1,4 +1,4 @@
-package eventmessage;
+package EventMessage;
 
 import java.util.ArrayList;
 

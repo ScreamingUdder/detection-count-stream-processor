@@ -5,4 +5,4 @@
  * Used for transmitting the data from Detection Events across Kafka.
  * </p>
  */
-package eventmessage;
+package EventMessage;
