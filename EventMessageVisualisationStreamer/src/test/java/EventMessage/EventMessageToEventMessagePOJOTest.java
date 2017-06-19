@@ -5,6 +5,7 @@ import org.junit.Before;
 
 import java.util.ArrayList;
 
+import static org.junit.Assert.assertArrayEquals;
 import static org.junit.Assert.assertEquals;
 
 /**
@@ -66,12 +67,11 @@ public class EventMessageToEventMessagePOJOTest {
     public void getDetectorsReturnsCorrectWhenConvertingDefaultEventMessage() {
         EventMessagePOJO eventMessagePOJO = EventMessageToEventMessagePOJO.convert(eventMessageBytes);
         ArrayList<Integer> detectorIds = eventMessagePOJO.getDetectors();
-        assertEquals(DEFAULT_DETECTORS.length, detectorIds.size());
-        assertEquals(DEFAULT_DETECTORS[0], (int) detectorIds.get(0));
-        assertEquals(DEFAULT_DETECTORS[DEFAULT_DETECTORS.length - 1], (int) detectorIds.get(DEFAULT_DETECTORS.length - 1));
-        // TODO
-        // array comparisons
+        int[] nativeDetectorIds = arrayListToNative(detectorIds);
+        assertArrayEquals(DEFAULT_DETECTORS, nativeDetectorIds);
     }
+
+    
 
 
 
