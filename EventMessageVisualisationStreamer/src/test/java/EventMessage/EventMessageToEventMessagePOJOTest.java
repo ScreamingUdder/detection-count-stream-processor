@@ -85,12 +85,4 @@ public class EventMessageToEventMessagePOJOTest {
         assertEquals(DEFAULT_DETECTORS[DEFAULT_DETECTORS.length - 1], detectorId);
     }
 
-
-
-
-
-
-
-
-
 }
