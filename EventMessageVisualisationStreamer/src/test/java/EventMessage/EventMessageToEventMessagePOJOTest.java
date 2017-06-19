@@ -71,7 +71,21 @@ public class EventMessageToEventMessagePOJOTest {
         assertArrayEquals(DEFAULT_DETECTORS, nativeDetectorIds);
     }
 
-    
+    @org.junit.Test
+    public void getDetectorReturnsCorrectGettingFirstDetector() {
+        EventMessagePOJO eventMessagePOJO = EventMessageToEventMessagePOJO.convert(eventMessageBytes);
+        int detectorId = eventMessagePOJO.getDetector(0);
+        assertEquals(DEFAULT_DETECTORS[0], detectorId);
+    }
+
+    @org.junit.Test
+    public void getDetectorReturnsCorrectGettingLastDetector() {
+        EventMessagePOJO eventMessagePOJO = EventMessageToEventMessagePOJO.convert(eventMessageBytes);
+        int detectorId = eventMessagePOJO.getDetector(DEFAULT_DETECTORS.length - 1);
+        assertEquals(DEFAULT_DETECTORS[DEFAULT_DETECTORS.length - 1], detectorId);
+    }
+
+
 
 
 
