@@ -3,6 +3,8 @@ package EventMessage;
 import com.google.flatbuffers.FlatBufferBuilder;
 import org.junit.Before;
 
+import java.util.ArrayList;
+
 import static org.junit.Assert.assertEquals;
 
 /**
@@ -23,13 +25,17 @@ public class EventMessageToEventMessagePOJOTest {
         }
         //create flatbuffer
         FlatBufferBuilder builder = new FlatBufferBuilder();
+
+        int detPos = EventMessage.createDetectorIdVector(builder, DEFAULT_DETECTORS);
+
+
         EventMessage.startEventMessage(builder);
         //add parameters
         EventMessage.addMessageId(builder, DEFAULT_MESSAGE_ID);
         EventMessage.addPulseTime(builder, DEFAULT_PULSE_TIME);
         //add detector ids
+        EventMessage.addDetectorId(builder, detPos);
         int event = EventMessage.endEventMessage(builder);
-        EventMessage.createDetectorIdVector(builder, DEFAULT_DETECTORS);
         builder.finish(event);
         eventMessageBytes = builder.sizedByteArray();
     }
@@ -48,6 +54,19 @@ public class EventMessageToEventMessagePOJOTest {
         assertEquals(DEFAULT_PULSE_TIME, pulseTime);
     }
 
-    
+    @org.junit.Test
+    public void getDetectorsReturnsCorrectWhenConvertingDefaultEventMessage() {
+        EventMessagePOJO eventMessagePOJO = EventMessageToEventMessagePOJO.convert(eventMessageBytes);
+        ArrayList<Integer> detectorIds = eventMessagePOJO.getDetectors();
+        assertEquals(DEFAULT_DETECTORS.length, detectorIds.size());
+        assertEquals(DEFAULT_DETECTORS[0], (int) detectorIds.get(0));
+        assertEquals(DEFAULT_DETECTORS[DEFAULT_DETECTORS.length - 1], (int) detectorIds.get(DEFAULT_DETECTORS.length - 1));
+        // TODO
+        // array comparisons
+    }
+
+
+
+
 
 }
