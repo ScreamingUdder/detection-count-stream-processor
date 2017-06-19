@@ -27,9 +27,10 @@ public class EventMessageToEventMessagePOJOTest {
         //add parameters
         EventMessage.addMessageId(builder, DEFAULT_MESSAGE_ID);
         EventMessage.addPulseTime(builder, DEFAULT_PULSE_TIME);
-        EventMessage.endEventMessage(builder);
         //add detector ids
+        int event = EventMessage.endEventMessage(builder);
         EventMessage.createDetectorIdVector(builder, DEFAULT_DETECTORS);
+        builder.finish(event);
         eventMessageBytes = builder.sizedByteArray();
     }
 
