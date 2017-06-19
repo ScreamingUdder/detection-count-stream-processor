@@ -6,6 +6,14 @@ package EventMessage;
  */
 public class EventMessageToEventMessagePOJO {
     public static EventMessagePOJO convert(byte[] eventMessageBytes) {
-        return null;
+        EventMessage eventMessage = EventMessage.getRootAsEventMessage(java.nio.ByteBuffer.wrap(eventMessageBytes));
+        int eventMessageId = (int) eventMessage.messageId();
+        EventMessagePOJO eventMessagePOJO = new EventMessagePOJO(eventMessageId, eventMessage.pulseTime());
+
+        for (int i = 0; i < eventMessage.detectorIdLength(); i++) {
+            int detectorID = (int) eventMessage.detectorId(i);
+            eventMessagePOJO.addDetector(detectorID);
+        }
+        return eventMessagePOJO;
     }
 }
