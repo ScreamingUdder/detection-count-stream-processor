@@ -41,4 +41,13 @@ public class EventMessageToEventMessagePOJOTest {
         assertEquals(DEFAULT_MESSAGE_ID, messageId);
     }
 
+    @org.junit.Test
+    public void getPulseTimeReturnsCorrectWhenConvertingDefaultEventMessage() {
+        EventMessagePOJO eventMessagePOJO = EventMessageToEventMessagePOJO.convert(eventMessageBytes);
+        long pulseTime = eventMessagePOJO.getPulseTime();
+        assertEquals(DEFAULT_PULSE_TIME, pulseTime);
+    }
+
+    
+
 }
