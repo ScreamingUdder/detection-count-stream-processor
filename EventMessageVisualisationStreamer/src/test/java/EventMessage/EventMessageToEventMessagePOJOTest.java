@@ -3,6 +3,8 @@ package EventMessage;
 import com.google.flatbuffers.FlatBufferBuilder;
 import org.junit.Before;
 
+import static org.junit.Assert.assertEquals;
+
 /**
  * JUnit tests for EventMessageToEventMessagePOJO utility class.
  * Created by ISIS, STFC on 12/06/2017.
@@ -29,6 +31,13 @@ public class EventMessageToEventMessagePOJOTest {
         //add detector ids
         EventMessage.createDetectorIdVector(builder, DEFAULT_DETECTORS);
         eventMessageBytes = builder.sizedByteArray();
+    }
+
+    @org.junit.Test
+    public void getMessageIdReturnsCorrectWhenConvertingDefaultEventMessage() {
+        EventMessagePOJO eventMessagePOJO = EventMessageToEventMessagePOJO.convert(eventMessageBytes);
+        int messageId = eventMessagePOJO.getMessageId();
+        assertEquals(DEFAULT_MESSAGE_ID, messageId);
     }
 
 }
