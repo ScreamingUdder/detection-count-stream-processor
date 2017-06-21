@@ -29,7 +29,6 @@ public class EventMessageToEventMessagePOJOTest {
         // The detector vector needs to be created, but detectors can't be added before the EventMessage is started.
         int detPos = EventMessage.createDetectorIdVector(builder, DEFAULT_DETECTORS);
 
-
         EventMessage.startEventMessage(builder);
         // add parameters
         EventMessage.addMessageId(builder, DEFAULT_MESSAGE_ID);
