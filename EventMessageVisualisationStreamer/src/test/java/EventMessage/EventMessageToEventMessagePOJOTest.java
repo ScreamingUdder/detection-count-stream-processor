@@ -41,7 +41,7 @@ public class EventMessageToEventMessagePOJOTest {
         eventMessageBytes = builder.sizedByteArray();
     }
 
-    public int[] arrayListToNative(ArrayList<Integer> arrayList) {
+    private int[] arrayListToNative(ArrayList<Integer> arrayList) {
         int[] nativeArray = new int[arrayList.size()];
         for (int i : arrayList) {
             nativeArray[i] = arrayList.get(i);
