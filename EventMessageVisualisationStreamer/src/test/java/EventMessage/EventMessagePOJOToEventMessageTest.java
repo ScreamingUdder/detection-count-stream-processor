@@ -6,6 +6,7 @@ import org.junit.rules.ExpectedException;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertNull;
 
 /**
  * Created by STFC,ISIS on 07/06/2017.
@@ -61,7 +62,7 @@ public class EventMessagePOJOToEventMessageTest {
 
         assertEquals(DEFAULT_MESSAGE_ID, result.getMessageId());
     }
-    
+
     @org.junit.Test
     public void getPulseTimeCorrectWhenConvertingDefaultPOJO() {
         byte[] eventMessage = EventMessagePOJOToEventMessage.convert(eventMessagePOJO);
@@ -69,5 +70,14 @@ public class EventMessagePOJOToEventMessageTest {
 
         assertEquals(DEFAULT_PULSE_TIME, result.getPulseTime());
     }
+
+    @org.junit.Test
+    public void getDetectorsReturnsNullWhenConvertingDefaultPOJO() {
+        byte[] eventMessage = EventMessagePOJOToEventMessage.convert(eventMessagePOJO);
+        EventMessagePOJO result = EventMessageToEventMessagePOJO.convert(eventMessage);
+
+        assertNull(result.getDetectors());
+    }
+
 
 }
