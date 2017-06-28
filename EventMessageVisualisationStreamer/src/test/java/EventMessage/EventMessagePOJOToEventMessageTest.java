@@ -4,9 +4,10 @@ import org.junit.Before;
 import org.junit.Rule;
 import org.junit.rules.ExpectedException;
 
+import java.util.ArrayList;
+
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertNull;
 
 /**
  * Created by STFC,ISIS on 07/06/2017.
@@ -76,7 +77,7 @@ public class EventMessagePOJOToEventMessageTest {
         byte[] eventMessage = EventMessagePOJOToEventMessage.convert(eventMessagePOJO);
         EventMessagePOJO result = EventMessageToEventMessagePOJO.convert(eventMessage);
 
-        assertNull(result.getDetectors());
+        assertEquals(new ArrayList<Integer>(), result.getDetectors());
     }
 
 
