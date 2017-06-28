@@ -80,5 +80,17 @@ public class EventMessagePOJOToEventMessageTest {
         assertEquals(new ArrayList<Integer>(), result.getDetectors());
     }
 
+    @org.junit.Test
+    public void getDetectorsReturnsCorrectWhenConvertingPOJOWithTwoDetectors() {
+        eventMessagePOJO.addDetector(1);
+        eventMessagePOJO.addDetector(2);
+        byte[] eventMessage = EventMessagePOJOToEventMessage.convert(eventMessagePOJO);
+        EventMessagePOJO result = EventMessageToEventMessagePOJO.convert(eventMessage);
+
+        assertEquals(2, result.getDetectors().size());
+        assertEquals(1,result.getDetector(0));
+        assertEquals(2,result.getDetector(1));
+    }
+
 
 }
