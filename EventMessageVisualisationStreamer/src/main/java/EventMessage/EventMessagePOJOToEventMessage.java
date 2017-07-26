@@ -30,23 +30,26 @@ public final class EventMessagePOJOToEventMessage {
         } else if (eventMessagePOJO.getPulseTime() < 0) {
             throw new RuntimeException("Pulse Time cannot be lower than 0.");
         } else {
-            FlatBufferBuilder builder = new FlatBufferBuilder();
-            EventMessage.startEventMessage(builder);
-            //set params
-            EventMessage.addMessageId(builder, eventMessagePOJO.getMessageId());
-            EventMessage.addPulseTime(builder, eventMessagePOJO.getPulseTime());
-            //serialise main eventmessage
-            int eventMessage = EventMessage.endEventMessage(builder);
-            builder.finish(eventMessage);
-            //convert detectors arraylist to primitive arrsy
             ArrayList<Integer> detectors = eventMessagePOJO.getDetectors();
             int[] detectorsArray = new int[detectors.size()];
             for (int i = 0; i < detectors.size(); i++) {
                 detectorsArray[i] = detectors.get(i);
             }
-            //add detectors array to event message
-            EventMessage.createDetectorIdVector(builder, detectorsArray);
+
+            // Builder must be initialised first
+            FlatBufferBuilder builder = new FlatBufferBuilder();
+            // Detector vector must be calculated before eventmessage is started
+            int detPos = EventMessage.createDetectorIdVector(builder, detectorsArray);
+            // Start event message
+            EventMessage.startEventMessage(builder);
+            // Detectorid can only be added after eventmessage is started
+            EventMessage.addDetectorId(builder, detPos);
+            // Set other params
+            EventMessage.addMessageId(builder, eventMessagePOJO.getMessageId());
+            EventMessage.addPulseTime(builder, eventMessagePOJO.getPulseTime());
             //convert to byte array and return
+            int eventMessage = EventMessage.endEventMessage(builder);
+            builder.finish(eventMessage);
             return builder.sizedByteArray();
         }
     }
