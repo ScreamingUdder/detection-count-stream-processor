@@ -24,7 +24,7 @@ public final class EventMessagePOJOToEventMessage {
      */
     public static byte[] convert(final EventMessagePOJO eventMessagePOJO) throws RuntimeException {
 
-        //check for invalid inputs
+        // Check for invalid inputs
         if (eventMessagePOJO.getMessageId() < 0) {
             throw new RuntimeException("MessageID cannot be lower than 0.");
         } else if (eventMessagePOJO.getPulseTime() < 0) {
@@ -47,7 +47,7 @@ public final class EventMessagePOJOToEventMessage {
             // Set other params
             EventMessage.addMessageId(builder, eventMessagePOJO.getMessageId());
             EventMessage.addPulseTime(builder, eventMessagePOJO.getPulseTime());
-            //convert to byte array and return
+            // Convert to byte array and return
             int eventMessage = EventMessage.endEventMessage(builder);
             builder.finish(eventMessage);
             return builder.sizedByteArray();

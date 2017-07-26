@@ -20,20 +20,20 @@ public class EventMessageToEventMessagePOJOTest {
     private byte[] eventMessageBytes;
     @Before
     public void setUp() throws Exception {
-        // fill detectors array
+        // Fill detectors array
         for (int i = 0; i < DEFAULT_DETECTORS.length; i++) {
             DEFAULT_DETECTORS[i] = i;
         }
-        // create FlatBuffer builder.
+        // Create FlatBuffer builder.
         FlatBufferBuilder builder = new FlatBufferBuilder();
         // The detector vector needs to be created, but detectors can't be added before the EventMessage is started.
         int detPos = EventMessage.createDetectorIdVector(builder, DEFAULT_DETECTORS);
 
         EventMessage.startEventMessage(builder);
-        // add parameters
+        // Add parameters
         EventMessage.addMessageId(builder, DEFAULT_MESSAGE_ID);
         EventMessage.addPulseTime(builder, DEFAULT_PULSE_TIME);
-        // add detector ids
+        // Add detector ids
         EventMessage.addDetectorId(builder, detPos);
         int event = EventMessage.endEventMessage(builder);
         builder.finish(event);
