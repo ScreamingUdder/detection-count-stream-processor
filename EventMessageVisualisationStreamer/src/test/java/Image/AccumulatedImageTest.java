@@ -57,6 +57,11 @@ public class AccumulatedImageTest {
         accumulatedImage = new AccumulatedImage(0);
     }
 
+    @Test
+    public void getFrequencyOfFirstIndexReturnsZeroOnDefaultImage() {
+        Assert.assertEquals(0, accumulatedImage.getFrequency(0));
+    }
+
 
 
 
