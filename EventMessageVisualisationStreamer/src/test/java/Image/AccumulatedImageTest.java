@@ -10,10 +10,11 @@ import org.junit.Test;
  */
 public class AccumulatedImageTest {
     private final long DEFAULT_PULSE_TIME = 0L;
+    private final int DEFAULT_IMAGE_SIZE = 1000;
     private AccumulatedImage accumulatedImage;
     @Before
     public void setUp() {
-        accumulatedImage = new AccumulatedImage(DEFAULT_PULSE_TIME);
+        accumulatedImage = new AccumulatedImage(DEFAULT_PULSE_TIME, DEFAULT_IMAGE_SIZE);
     }
 
     @Test
@@ -38,6 +39,10 @@ public class AccumulatedImageTest {
     @Test(expected = AssertionError.class)
     public void createNewHeatmapWithNegativePulseTimeThrowsAssertionError() {
         long newPulseTime = -1L;
-        accumulatedImage = new AccumulatedImage(newPulseTime);
+        accumulatedImage = new AccumulatedImage(newPulseTime, DEFAULT_IMAGE_SIZE);
     }
+
+
+
+
 }
