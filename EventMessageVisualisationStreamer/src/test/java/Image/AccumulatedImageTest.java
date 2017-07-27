@@ -42,6 +42,11 @@ public class AccumulatedImageTest {
         accumulatedImage = new AccumulatedImage(DEFAULT_IMAGE_SIZE, newPulseTime);
     }
 
+    @Test
+    public void getImageSizeCorrectOnDefaultImage() {
+        Assert.assertEquals(DEFAULT_IMAGE_SIZE, accumulatedImage.getImageSize());
+    }
+
 
 
 
