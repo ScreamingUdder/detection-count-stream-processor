@@ -93,5 +93,4 @@ public class EventMessagePOJOToEventMessageTest {
         assertEquals(2,result.getDetector(1));
     }
 
-
 }
