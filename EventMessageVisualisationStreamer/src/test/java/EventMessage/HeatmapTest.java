@@ -5,7 +5,7 @@ import org.junit.Test;
 
 /**
  * JUnit tests for Heatmap Java Object
- * Created by ISIS, STFC on 12/06/2017.
+ * Created by ISIS, STFC on 27/07/2017.
  */
 public class HeatmapTest {
     private final long DEFAULT_PULSE_TIME = 0L;
