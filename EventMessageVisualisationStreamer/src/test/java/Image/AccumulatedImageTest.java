@@ -94,6 +94,11 @@ public class AccumulatedImageTest {
         accumulatedImage.setFrequency(9999, 5);
     }
 
+    @Test(expected = AssertionError.class)
+    public void setFrequencyOfOutOfBoundsByOneDetectorThrowsAssertionError() {
+        accumulatedImage.setFrequency(DEFAULT_IMAGE_SIZE, 5);
+    }
+
 
 
 
