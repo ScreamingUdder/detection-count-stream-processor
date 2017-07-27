@@ -54,6 +54,7 @@ public class AccumulatedImage implements ImageInterface {
     }
 
     public void incrementFrequency(int detector) {
+        assert detector >= 0: DETECTOR_POSITIVE_ASSERTION_MESSAGE;
         image[detector]++;
     }
 }
