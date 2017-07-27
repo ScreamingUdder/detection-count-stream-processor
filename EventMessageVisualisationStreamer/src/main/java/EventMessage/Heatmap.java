@@ -14,4 +14,12 @@ public class Heatmap {
     public Heatmap(Long pulseTime) {
         this.pulseTime = pulseTime;
     }
+
+    public long getPulseTime() {
+        return pulseTime;
+    }
+
+    public void setPulseTime(long pulseTime) {
+        this.pulseTime = pulseTime;
+    }
 }
