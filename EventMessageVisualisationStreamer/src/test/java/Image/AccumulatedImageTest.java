@@ -129,4 +129,9 @@ public class AccumulatedImageTest {
         accumulatedImage.incrementFrequency(9999);
     }
 
+    @Test(expected = AssertionError.class)
+    public void incrementFrequencyOfOutOfBoundsByOneDetectorThrowsAssertionError() {
+        accumulatedImage.incrementFrequency(DEFAULT_IMAGE_SIZE);
+    }
+
 }
