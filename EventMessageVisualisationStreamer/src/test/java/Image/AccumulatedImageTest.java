@@ -52,6 +52,11 @@ public class AccumulatedImageTest {
         accumulatedImage = new AccumulatedImage(-1);
     }
 
+    @Test(expected = AssertionError.class)
+    public void createNewImageWithZeroSizeThrowsAssertionError() {
+        accumulatedImage = new AccumulatedImage(0);
+    }
+
 
 
 
