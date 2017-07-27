@@ -2,6 +2,7 @@ package EventMessage;
 
 import org.junit.Before;
 import org.junit.Rule;
+import org.junit.Test;
 import org.junit.rules.ExpectedException;
 
 import java.util.ArrayList;
@@ -27,27 +28,27 @@ public class EventMessagePOJOToEventMessageTest {
     @Rule
     public ExpectedException exception = ExpectedException.none();
 
-    @org.junit.Test
+    @Test
     public void runtimeExceptionWhenMessageIdNegative() {
         exception.expect(RuntimeException.class);
         eventMessagePOJO.setMessageId(-1);
         EventMessagePOJOToEventMessage.convert(eventMessagePOJO);
     }
 
-    @org.junit.Test
+    @Test
     public void runtimeExceptionWhenPulseTimeNegative() {
         exception.expect(RuntimeException.class);
         eventMessagePOJO.setPulseTime(-1);
         EventMessagePOJOToEventMessage.convert(eventMessagePOJO);
     }
 
-    @org.junit.Test
+    @Test
     public void convertPOJOWithNoDetectorsReturnsByteArray() {
         byte[] result = EventMessagePOJOToEventMessage.convert(eventMessagePOJO);
         assertNotNull("Should not be null", result);
     }
 
-    @org.junit.Test
+    @Test
     public void convertPOJOWithDetectorsReturnsByteArray() {
         eventMessagePOJO.addDetector(1);
         eventMessagePOJO.addDetector(2);
@@ -56,7 +57,7 @@ public class EventMessagePOJOToEventMessageTest {
         assertNotNull("Should not be null", result);
     }
 
-    @org.junit.Test
+    @Test
     public void getMessageIDCorrectWhenConvertingDefaultPOJO() {
         byte[] eventMessage = EventMessagePOJOToEventMessage.convert(eventMessagePOJO);
         EventMessagePOJO result = EventMessageToEventMessagePOJO.convert(eventMessage);
@@ -64,7 +65,7 @@ public class EventMessagePOJOToEventMessageTest {
         assertEquals(DEFAULT_MESSAGE_ID, result.getMessageId());
     }
 
-    @org.junit.Test
+    @Test
     public void getPulseTimeCorrectWhenConvertingDefaultPOJO() {
         byte[] eventMessage = EventMessagePOJOToEventMessage.convert(eventMessagePOJO);
         EventMessagePOJO result = EventMessageToEventMessagePOJO.convert(eventMessage);
@@ -72,7 +73,7 @@ public class EventMessagePOJOToEventMessageTest {
         assertEquals(DEFAULT_PULSE_TIME, result.getPulseTime());
     }
 
-    @org.junit.Test
+    @Test
     public void getDetectorsReturnsNullWhenConvertingDefaultPOJO() {
         byte[] eventMessage = EventMessagePOJOToEventMessage.convert(eventMessagePOJO);
         EventMessagePOJO result = EventMessageToEventMessagePOJO.convert(eventMessage);
@@ -80,7 +81,7 @@ public class EventMessagePOJOToEventMessageTest {
         assertEquals(new ArrayList<Integer>(), result.getDetectors());
     }
 
-    @org.junit.Test
+    @Test
     public void getDetectorsReturnsCorrectWhenConvertingPOJOWithTwoDetectors() {
         eventMessagePOJO.addDetector(1);
         eventMessagePOJO.addDetector(2);
