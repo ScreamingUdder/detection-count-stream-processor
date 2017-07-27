@@ -41,6 +41,7 @@ public class AccumulatedImage implements ImageInterface {
     }
 
     public void setFrequency(int detector, int newFreq) {
+        assert detector >= 0: "Detector index myst be positive.";
         image[detector] = newFreq;
     }
 }
