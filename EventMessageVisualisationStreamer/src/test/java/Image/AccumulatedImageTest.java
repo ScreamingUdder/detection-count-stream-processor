@@ -111,4 +111,12 @@ public class AccumulatedImageTest {
         accumulatedImage.setFrequency(0, -1);
     }
 
+    // Increment frequency tests.
+
+    @Test
+    public void getFrequencyAfterIncrementFrequencyOfFirstIndexReturnsCorrect() {
+        accumulatedImage.incrementFrequency(0);
+        Assert.assertEquals(1, accumulatedImage.getFrequency(0));
+    }
+
 }
