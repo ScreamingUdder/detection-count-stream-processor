@@ -15,6 +15,6 @@ public interface ImageInterface {
     int getImageSize();
 
     int getFrequency(int detector);
-    int setFrequency(int detector, int newFrequency);
+    void setFrequency(int detector, int newFrequency);
 
 }
