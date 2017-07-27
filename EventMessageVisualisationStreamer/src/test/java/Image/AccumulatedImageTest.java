@@ -84,6 +84,11 @@ public class AccumulatedImageTest {
         Assert.assertEquals(newFreq, accumulatedImage.getFrequency(0));
     }
 
+    @Test(expected = AssertionError.class)
+    public void setFrequencyOfNegativeDetectorThrowsAssertionError() {
+        accumulatedImage.setFrequency(-1, 5);
+    }
+
 
 
 
