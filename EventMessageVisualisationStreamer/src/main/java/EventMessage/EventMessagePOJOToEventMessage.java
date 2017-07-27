@@ -9,13 +9,6 @@ import java.util.ArrayList;
  * Converts EventMessagePOJO to EventMessage
  */
 public final class EventMessagePOJOToEventMessage {
-
-    /**
-     * Constructor. Not for use.
-     */
-    private EventMessagePOJOToEventMessage() {
-    }
-
     /**
      * Main method.
      * @param eventMessagePOJO The eventMessagePOJO to be converted.
@@ -40,7 +33,6 @@ public final class EventMessagePOJOToEventMessage {
             FlatBufferBuilder builder = new FlatBufferBuilder();
             // Detector vector must be calculated before eventmessage is started
             int detPos = EventMessage.createDetectorIdVector(builder, detectorsArray);
-            // Start event message
             EventMessage.startEventMessage(builder);
             // Detectorid can only be added after eventmessage is started
             EventMessage.addDetectorId(builder, detPos);
