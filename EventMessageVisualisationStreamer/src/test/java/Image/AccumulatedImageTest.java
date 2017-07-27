@@ -82,14 +82,14 @@ public class AccumulatedImageTest {
         accumulatedImage.getFrequency(DEFAULT_IMAGE_SIZE);
     }
 
+    // Set frequency tests.
+
     @Test
     public void getFrequencyAfterSetFrequencyOfFirstIndexReturnsCorrect() {
         int newFreq = 5;
         accumulatedImage.setFrequency(0, 5);
         Assert.assertEquals(newFreq, accumulatedImage.getFrequency(0));
     }
-
-    // Set frequency tests.
 
     @Test(expected = AssertionError.class)
     public void setFrequencyOfNegativeDetectorThrowsAssertionError() {
@@ -110,8 +110,5 @@ public class AccumulatedImageTest {
     public void setFrequencyOfDetectorToNegativeThrowsAssertionError() {
         accumulatedImage.setFrequency(0, -1);
     }
-
-
-
 
 }
