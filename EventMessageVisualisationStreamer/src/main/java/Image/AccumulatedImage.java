@@ -2,6 +2,8 @@ package Image;
 
 import java.security.InvalidParameterException;
 
+import static Image.ImageExceptionMessages.*;
+
 /**
  * AccumulatedImage Java Object for storing heatmap data in a static context
  * Created by ISIS, STFC on 27/07/2017.
@@ -10,10 +12,7 @@ public class AccumulatedImage implements ImageInterface {
     private long pulseTime; // Must be positive
     private int[] image;
 
-    private final String DETECTOR_WITHIN_BOUNDS_ERROR_MESSAGE = "Detector index must be within image bounds.";
-    private final String IMAGE_SIZE_ABOVE_ZERO_ERROR_MESSAGE = "Image size must be above zero.";
-    private final String PULSE_TIME_POSITIVE_ERROR_MESSAGE = "PulseTime cannot be negative.";
-    private final String FREQUENCY_POSITIVE_ERROR_MESSAGE = "The new frequency must be positive.";
+
 
     public AccumulatedImage(int imageSize) {
         if (imageSize <= 0) {
@@ -49,14 +48,14 @@ public class AccumulatedImage implements ImageInterface {
     }
 
     public int getFrequency(int detector) {
-        if (detector < 0 || detector > getImageSize()) {
+        if (detector < 0 || detector >= getImageSize()) {
             throw new InvalidParameterException(DETECTOR_WITHIN_BOUNDS_ERROR_MESSAGE);
         }
         return image[detector];
     }
 
     public void setFrequency(int detector, int newFreq) {
-        if (detector < 0 || detector > getImageSize()) {
+        if (detector < 0 || detector >= getImageSize()) {
             throw new InvalidParameterException(DETECTOR_WITHIN_BOUNDS_ERROR_MESSAGE);
         } else if (newFreq < 0) {
             throw new InvalidParameterException(FREQUENCY_POSITIVE_ERROR_MESSAGE);
@@ -65,7 +64,7 @@ public class AccumulatedImage implements ImageInterface {
     }
 
     public void incrementFrequency(int detector) {
-        if (detector < 0 || detector > getImageSize()) {
+        if (detector < 0 || detector >= getImageSize()) {
             throw new InvalidParameterException(DETECTOR_WITHIN_BOUNDS_ERROR_MESSAGE);
         }
         image[detector]++;
