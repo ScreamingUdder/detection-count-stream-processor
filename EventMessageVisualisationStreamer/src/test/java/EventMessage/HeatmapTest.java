@@ -1,13 +1,16 @@
 package EventMessage;
 
 import org.junit.Before;
+import org.junit.Test;
 
 /**
- * Created by sci28761 on 27/07/2017.
+ * JUnit tests for Heatmap Java Object
+ * Created by ISIS, STFC on 12/06/2017.
  */
 public class HeatmapTest {
+    private final long DEFAULT_PULSE_TIME = 0L;
     @Before
     public void setUp() {
-        Heatmap heatmap = new Heatmap();
+        Heatmap heatmap = new Heatmap(DEFAULT_PULSE_TIME);
     }
 }
