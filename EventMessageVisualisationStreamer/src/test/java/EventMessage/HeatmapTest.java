@@ -1,5 +1,6 @@
 package EventMessage;
 
+import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -9,8 +10,14 @@ import org.junit.Test;
  */
 public class HeatmapTest {
     private final long DEFAULT_PULSE_TIME = 0L;
+    private Heatmap heatmap;
     @Before
     public void setUp() {
-        Heatmap heatmap = new Heatmap(DEFAULT_PULSE_TIME);
+        heatmap = new Heatmap(DEFAULT_PULSE_TIME);
+    }
+
+    @Test
+    public void getPulseTimeReturnsCorrectOnDefaultHeatmap() {
+        Assert.assertEquals(DEFAULT_PULSE_TIME, heatmap.getPulseTime());
     }
 }
