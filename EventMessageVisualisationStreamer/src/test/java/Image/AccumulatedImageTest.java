@@ -47,6 +47,11 @@ public class AccumulatedImageTest {
         Assert.assertEquals(DEFAULT_IMAGE_SIZE, accumulatedImage.getImageSize());
     }
 
+    @Test(expected = AssertionError.class)
+    public void createNewImageWithNegativeSizeThrowsAssertionError() {
+        accumulatedImage = new AccumulatedImage(-1);
+    }
+
 
 
 
