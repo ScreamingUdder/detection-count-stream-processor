@@ -36,6 +36,7 @@ public class AccumulatedImage implements ImageInterface {
 
     public int getFrequency(int detector) {
         assert detector >= 0: "Detector index must be positive.";
+        assert detector > getImageSize(): "Detector index must be within image bounds.";
         return image[detector];
     }
 }
