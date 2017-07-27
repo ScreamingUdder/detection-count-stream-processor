@@ -5,7 +5,7 @@ package EventMessage;
  * Created by ISIS, STFC on 27/07/2017.
  */
 public class Heatmap {
-    private long pulseTime;
+    private long pulseTime; // Must be positive
 
     public Heatmap() {
         pulseTime = 0L;
@@ -20,6 +20,7 @@ public class Heatmap {
     }
 
     public void setPulseTime(long pulseTime) {
+        assert pulseTime >= 0;
         this.pulseTime = pulseTime;
     }
 }
