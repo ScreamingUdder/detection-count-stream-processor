@@ -34,4 +34,10 @@ public class HeatmapTest {
         long newPulseTime = -1L;
         heatmap.setPulseTime(newPulseTime);
     }
+
+    @Test(expected = AssertionError.class)
+    public void createNewHeatmapWithNegativePulseTimeThrowsAssertionError() {
+        long newPulseTime = -1L;
+        heatmap = new Heatmap(newPulseTime);
+    }
 }
