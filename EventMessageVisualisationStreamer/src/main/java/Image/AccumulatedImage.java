@@ -12,8 +12,6 @@ public class AccumulatedImage implements ImageInterface {
     private long pulseTime; // Must be positive
     private int[] image;
 
-
-
     public AccumulatedImage(int imageSize) {
         if (imageSize <= 0) {
             throw new InvalidParameterException(IMAGE_SIZE_ABOVE_ZERO_ERROR_MESSAGE);
