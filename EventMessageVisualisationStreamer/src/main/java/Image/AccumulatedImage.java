@@ -9,14 +9,14 @@ public class AccumulatedImage implements ImageInterface {
     private int[] image;
 
     public AccumulatedImage(int imageSize) {
-        assert imageSize > 0;
+        assert imageSize > 0: "Image size must be above zero.";
         image = new int[imageSize];
         pulseTime = 0L;
     }
 
     public AccumulatedImage(int imageSize, Long pulseTime) {
-        assert imageSize > 0;
-        assert pulseTime >= 0;
+        assert imageSize > 0: "Image size must be above zero.";
+        assert pulseTime >= 0: "PulseTime cannot be negative.";
         this.pulseTime = pulseTime;
         image = new int[imageSize];
     }
@@ -26,7 +26,7 @@ public class AccumulatedImage implements ImageInterface {
     }
 
     public void setPulseTime(long pulseTime) {
-        assert pulseTime >= 0;
+        assert pulseTime >= 0: "PulseTime cannot be negative.";
         this.pulseTime = pulseTime;
     }
 
