@@ -33,4 +33,8 @@ public class AccumulatedImage implements ImageInterface {
     public int getImageSize() {
         return image.length;
     }
+
+    public int getFrequency(int detector) {
+        return image[detector];
+    }
 }
