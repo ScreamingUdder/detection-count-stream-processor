@@ -99,6 +99,11 @@ public class AccumulatedImageTest {
         accumulatedImage.setFrequency(DEFAULT_IMAGE_SIZE, 5);
     }
 
+    @Test(expected = AssertionError.class)
+    public void setFrequencyOfDetectorToNegativeThrowsAssertionError() {
+        accumulatedImage.setFrequency(0, -1);
+    }
+
 
 
 
