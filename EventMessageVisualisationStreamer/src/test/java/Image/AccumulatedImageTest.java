@@ -14,7 +14,7 @@ public class AccumulatedImageTest {
     private AccumulatedImage accumulatedImage;
     @Before
     public void setUp() {
-        accumulatedImage = new AccumulatedImage(DEFAULT_PULSE_TIME, DEFAULT_IMAGE_SIZE);
+        accumulatedImage = new AccumulatedImage(DEFAULT_IMAGE_SIZE, DEFAULT_PULSE_TIME);
     }
 
     @Test
@@ -39,7 +39,7 @@ public class AccumulatedImageTest {
     @Test(expected = AssertionError.class)
     public void createNewHeatmapWithNegativePulseTimeThrowsAssertionError() {
         long newPulseTime = -1L;
-        accumulatedImage = new AccumulatedImage(newPulseTime, DEFAULT_IMAGE_SIZE);
+        accumulatedImage = new AccumulatedImage(DEFAULT_IMAGE_SIZE, newPulseTime);
     }
 
 
