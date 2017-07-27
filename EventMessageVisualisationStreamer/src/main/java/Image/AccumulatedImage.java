@@ -4,7 +4,7 @@ package Image;
  * AccumulatedImage Java Object for storing heatmap data in a static context
  * Created by ISIS, STFC on 27/07/2017.
  */
-public class AccumulatedImage {
+public class AccumulatedImage implements ImageInterface {
     private long pulseTime; // Must be positive
 
     public AccumulatedImage() {
