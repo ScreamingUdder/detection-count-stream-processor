@@ -27,4 +27,8 @@ public class AccumulatedImage implements ImageInterface {
         assert pulseTime >= 0;
         this.pulseTime = pulseTime;
     }
+
+    public int getImageSize() {
+        return image.length;
+    }
 }
