@@ -5,8 +5,8 @@ import com.google.flatbuffers.FlatBufferBuilder;
 import java.util.ArrayList;
 
 /**
+ * Converts EventMessagePOJO to EventMessage.
  * Created by ISIS,STFC on 07/06/2017.
- * Converts EventMessagePOJO to EventMessage
  */
 public final class EventMessagePOJOToEventMessage {
     /**

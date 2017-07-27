@@ -10,8 +10,8 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 
 /**
- * Created by STFC,ISIS on 07/06/2017.
  * Unit tests for EventMessagePOJO to EventMessage converter.
+ * Created by ISIS,STFC on 07/06/2017.
  */
 @SuppressWarnings("checkstyle:javadocmethod")
 public class EventMessagePOJOToEventMessageTest {

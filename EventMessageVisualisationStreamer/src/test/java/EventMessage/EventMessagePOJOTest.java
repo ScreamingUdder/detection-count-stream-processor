@@ -2,13 +2,12 @@ package EventMessage;
 
 import java.util.ArrayList;
 import java.util.List;
-import EventMessage.EventMessagePOJO;
 
 import static org.junit.Assert.assertEquals;
 
 /**
+ * Unit tests for EventMessagePOJO.
  * Created by ISIS,STFC on 02/06/2017.
- * Unit tests for EventMessagePOJO
  */
 @SuppressWarnings("checkstyle:javadocmethod")
 public class EventMessagePOJOTest {
