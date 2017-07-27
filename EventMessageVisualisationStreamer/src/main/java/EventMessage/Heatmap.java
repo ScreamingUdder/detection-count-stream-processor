@@ -12,6 +12,7 @@ public class Heatmap {
     }
 
     public Heatmap(Long pulseTime) {
+        assert pulseTime >= 0;
         this.pulseTime = pulseTime;
     }
 
