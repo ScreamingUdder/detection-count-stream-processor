@@ -14,4 +14,6 @@ public interface ImageInterface {
 
     int getImageSize();
 
+    int getFrequency(int detector);
+
 }
