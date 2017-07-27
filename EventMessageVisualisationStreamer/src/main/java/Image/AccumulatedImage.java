@@ -6,14 +6,17 @@ package Image;
  */
 public class AccumulatedImage implements ImageInterface {
     private long pulseTime; // Must be positive
+    private int[] image;
 
-    public AccumulatedImage() {
+    public AccumulatedImage(int imageSize) {
+        image = new int[imageSize];
         pulseTime = 0L;
     }
 
-    public AccumulatedImage(Long pulseTime) {
+    public AccumulatedImage(int imageSize, Long pulseTime) {
         assert pulseTime >= 0;
         this.pulseTime = pulseTime;
+        image = new int[imageSize];
     }
 
     public long getPulseTime() {
