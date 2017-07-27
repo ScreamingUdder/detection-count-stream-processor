@@ -17,6 +17,7 @@ public class AccumulatedImageTest {
         accumulatedImage = new AccumulatedImage(DEFAULT_IMAGE_SIZE, DEFAULT_PULSE_TIME);
     }
 
+    // Pulse time tests.
     @Test
     public void getPulseTimeReturnsCorrectOnDefaultHeatmap() {
         Assert.assertEquals(DEFAULT_PULSE_TIME, accumulatedImage.getPulseTime());
@@ -37,10 +38,12 @@ public class AccumulatedImageTest {
     }
 
     @Test(expected = AssertionError.class)
-    public void createNewHeatmapWithNegativePulseTimeThrowsAssertionError() {
+    public void createNewImageWithNegativePulseTimeThrowsAssertionError() {
         long newPulseTime = -1L;
         accumulatedImage = new AccumulatedImage(DEFAULT_IMAGE_SIZE, newPulseTime);
     }
+
+    // Image size tests.
 
     @Test
     public void getImageSizeCorrectOnDefaultImage() {
@@ -56,6 +59,8 @@ public class AccumulatedImageTest {
     public void createNewImageWithZeroSizeThrowsAssertionError() {
         accumulatedImage = new AccumulatedImage(0);
     }
+
+    // Get frequency tests.
 
     @Test
     public void getFrequencyOfFirstIndexReturnsZeroOnDefaultImage() {
@@ -83,6 +88,8 @@ public class AccumulatedImageTest {
         accumulatedImage.setFrequency(0, 5);
         Assert.assertEquals(newFreq, accumulatedImage.getFrequency(0));
     }
+
+    // Set frequency tests.
 
     @Test(expected = AssertionError.class)
     public void setFrequencyOfNegativeDetectorThrowsAssertionError() {
