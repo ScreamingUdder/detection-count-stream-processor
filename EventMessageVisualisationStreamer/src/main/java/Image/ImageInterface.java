@@ -6,8 +6,12 @@ package Image;
  */
 public interface ImageInterface {
     long pulseTime = 0L;
+    int[] image = {};
+
 
     void setPulseTime(long newPulseTime);
     long getPulseTime();
+
+    int getImageSize();
 
 }
