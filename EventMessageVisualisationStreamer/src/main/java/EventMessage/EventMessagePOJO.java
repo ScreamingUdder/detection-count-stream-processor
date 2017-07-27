@@ -4,6 +4,7 @@ import java.util.ArrayList;
 
 /**
  * POJO for the Event Message, designed for easier use when not being sent over Kafka.
+ * Created by ISIS, STFC on 07/06/2017.
  */
 public class EventMessagePOJO {
     private int messageId;
