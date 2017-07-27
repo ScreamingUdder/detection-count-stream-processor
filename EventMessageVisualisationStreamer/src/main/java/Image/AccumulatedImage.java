@@ -1,5 +1,7 @@
 package Image;
 
+import java.security.InvalidParameterException;
+
 /**
  * AccumulatedImage Java Object for storing heatmap data in a static context
  * Created by ISIS, STFC on 27/07/2017.
@@ -8,21 +10,25 @@ public class AccumulatedImage implements ImageInterface {
     private long pulseTime; // Must be positive
     private int[] image;
 
-    private final String DETECTOR_POSITIVE_ASSERTION_MESSAGE = "Detector index must be positive.";
-    private final String DETECTOR_WITHIN_BOUNDS_ASSERTION_MESSAGE = "Detector index must be within image bounds.";
-    private final String IMAGE_SIZE_ABOVE_ZERO_ASSERTION_MESSAGE = "Image size must be above zero.";
-    private final String PULSE_TIME_POSITIVE_ASSERTION_MESSAGE = "PulseTime cannot be negative.";
-    private final String FREQUENCY_POSITIVE_ASSERTION_MESSAGE = "The new frequency must be positive.";
+    private final String DETECTOR_WITHIN_BOUNDS_ERROR_MESSAGE = "Detector index must be within image bounds.";
+    private final String IMAGE_SIZE_ABOVE_ZERO_ERROR_MESSAGE = "Image size must be above zero.";
+    private final String PULSE_TIME_POSITIVE_ERROR_MESSAGE = "PulseTime cannot be negative.";
+    private final String FREQUENCY_POSITIVE_ERROR_MESSAGE = "The new frequency must be positive.";
 
     public AccumulatedImage(int imageSize) {
-        assert imageSize > 0: IMAGE_SIZE_ABOVE_ZERO_ASSERTION_MESSAGE;
+        if (imageSize <= 0) {
+            throw new InvalidParameterException(IMAGE_SIZE_ABOVE_ZERO_ERROR_MESSAGE);
+        }
         image = new int[imageSize];
         pulseTime = 0L;
     }
 
     public AccumulatedImage(int imageSize, Long pulseTime) {
-        assert imageSize > 0: IMAGE_SIZE_ABOVE_ZERO_ASSERTION_MESSAGE;
-        assert pulseTime >= 0: PULSE_TIME_POSITIVE_ASSERTION_MESSAGE;
+        if (imageSize <= 0) {
+            throw new InvalidParameterException(IMAGE_SIZE_ABOVE_ZERO_ERROR_MESSAGE);
+        } else if (pulseTime < 0) {
+            throw new InvalidParameterException(PULSE_TIME_POSITIVE_ERROR_MESSAGE);
+        }
         this.pulseTime = pulseTime;
         image = new int[imageSize];
     }
@@ -32,7 +38,9 @@ public class AccumulatedImage implements ImageInterface {
     }
 
     public void setPulseTime(long pulseTime) {
-        assert pulseTime >= 0: PULSE_TIME_POSITIVE_ASSERTION_MESSAGE;
+        if (pulseTime < 0) {
+            throw new InvalidParameterException(PULSE_TIME_POSITIVE_ERROR_MESSAGE);
+        }
         this.pulseTime = pulseTime;
     }
 
@@ -41,21 +49,25 @@ public class AccumulatedImage implements ImageInterface {
     }
 
     public int getFrequency(int detector) {
-        assert detector >= 0: DETECTOR_POSITIVE_ASSERTION_MESSAGE;
-        assert detector < getImageSize(): DETECTOR_WITHIN_BOUNDS_ASSERTION_MESSAGE;
+        if (detector < 0 || detector > getImageSize()) {
+            throw new InvalidParameterException(DETECTOR_WITHIN_BOUNDS_ERROR_MESSAGE);
+        }
         return image[detector];
     }
 
     public void setFrequency(int detector, int newFreq) {
-        assert detector >= 0: DETECTOR_POSITIVE_ASSERTION_MESSAGE;
-        assert detector < getImageSize(): DETECTOR_WITHIN_BOUNDS_ASSERTION_MESSAGE;
-        assert newFreq >= 0: FREQUENCY_POSITIVE_ASSERTION_MESSAGE;
+        if (detector < 0 || detector > getImageSize()) {
+            throw new InvalidParameterException(DETECTOR_WITHIN_BOUNDS_ERROR_MESSAGE);
+        } else if (newFreq < 0) {
+            throw new InvalidParameterException(FREQUENCY_POSITIVE_ERROR_MESSAGE);
+        }
         image[detector] = newFreq;
     }
 
     public void incrementFrequency(int detector) {
-        assert detector >= 0: DETECTOR_POSITIVE_ASSERTION_MESSAGE;
-        assert detector < getImageSize(): DETECTOR_WITHIN_BOUNDS_ASSERTION_MESSAGE;
+        if (detector < 0 || detector > getImageSize()) {
+            throw new InvalidParameterException(DETECTOR_WITHIN_BOUNDS_ERROR_MESSAGE);
+        }
         image[detector]++;
     }
 }
