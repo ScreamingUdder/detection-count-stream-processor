@@ -10,7 +10,7 @@ import static org.junit.Assert.assertEquals;
 
 /**
  * Unit tests for EventMessagePOJO.
- * Created by ISIS,STFC on 02/06/2017.
+ * Created by ISIS, STFC on 02/06/2017.
  */
 @SuppressWarnings("checkstyle:javadocmethod")
 public class EventMessagePOJOTest {

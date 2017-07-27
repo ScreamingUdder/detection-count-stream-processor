@@ -6,7 +6,7 @@ import java.util.ArrayList;
 
 /**
  * Converts EventMessagePOJO to EventMessage.
- * Created by ISIS,STFC on 07/06/2017.
+ * Created by ISIS, STFC on 07/06/2017.
  */
 public final class EventMessagePOJOToEventMessage {
     /**
@@ -45,6 +45,5 @@ public final class EventMessagePOJOToEventMessage {
             return builder.sizedByteArray();
         }
     }
-
 
 }

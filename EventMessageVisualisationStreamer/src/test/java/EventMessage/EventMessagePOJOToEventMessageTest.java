@@ -12,7 +12,7 @@ import static org.junit.Assert.assertNotNull;
 
 /**
  * Unit tests for EventMessagePOJO to EventMessage converter.
- * Created by ISIS,STFC on 07/06/2017.
+ * Created by ISIS, STFC on 07/06/2017.
  */
 @SuppressWarnings("checkstyle:javadocmethod")
 public class EventMessagePOJOToEventMessageTest {
