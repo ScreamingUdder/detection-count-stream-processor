@@ -1,17 +1,17 @@
 package Image;
 
 /**
- * Heatmap Java Object for storing heatmap data in a static context
+ * AccumulatedImage Java Object for storing heatmap data in a static context
  * Created by ISIS, STFC on 27/07/2017.
  */
-public class Heatmap {
+public class AccumulatedImage {
     private long pulseTime; // Must be positive
 
-    public Heatmap() {
+    public AccumulatedImage() {
         pulseTime = 0L;
     }
 
-    public Heatmap(Long pulseTime) {
+    public AccumulatedImage(Long pulseTime) {
         assert pulseTime >= 0;
         this.pulseTime = pulseTime;
     }

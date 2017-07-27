@@ -5,39 +5,39 @@ import org.junit.Before;
 import org.junit.Test;
 
 /**
- * JUnit tests for Heatmap Java Object
+ * JUnit tests for AccumulatedImage Java Object
  * Created by ISIS, STFC on 27/07/2017.
  */
-public class HeatmapTest {
+public class AccumulatedImageTest {
     private final long DEFAULT_PULSE_TIME = 0L;
-    private Heatmap heatmap;
+    private AccumulatedImage accumulatedImage;
     @Before
     public void setUp() {
-        heatmap = new Heatmap(DEFAULT_PULSE_TIME);
+        accumulatedImage = new AccumulatedImage(DEFAULT_PULSE_TIME);
     }
 
     @Test
     public void getPulseTimeReturnsCorrectOnDefaultHeatmap() {
-        Assert.assertEquals(DEFAULT_PULSE_TIME, heatmap.getPulseTime());
+        Assert.assertEquals(DEFAULT_PULSE_TIME, accumulatedImage.getPulseTime());
     }
 
     @Test
     public void setPulseTimeToPositiveLongWorksCorrectly() {
         long newPulseTime = 1L;
-        heatmap.setPulseTime(newPulseTime);
+        accumulatedImage.setPulseTime(newPulseTime);
 
-        Assert.assertEquals(newPulseTime, heatmap.getPulseTime());
+        Assert.assertEquals(newPulseTime, accumulatedImage.getPulseTime());
     }
 
     @Test(expected = AssertionError.class)
     public void setPulseTimeToNegativeLongThrowsAssertionError() {
         long newPulseTime = -1L;
-        heatmap.setPulseTime(newPulseTime);
+        accumulatedImage.setPulseTime(newPulseTime);
     }
 
     @Test(expected = AssertionError.class)
     public void createNewHeatmapWithNegativePulseTimeThrowsAssertionError() {
         long newPulseTime = -1L;
-        heatmap = new Heatmap(newPulseTime);
+        accumulatedImage = new AccumulatedImage(newPulseTime);
     }
 }
