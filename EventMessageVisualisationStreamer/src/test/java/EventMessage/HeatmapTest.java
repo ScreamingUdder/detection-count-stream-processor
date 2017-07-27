@@ -20,4 +20,12 @@ public class HeatmapTest {
     public void getPulseTimeReturnsCorrectOnDefaultHeatmap() {
         Assert.assertEquals(DEFAULT_PULSE_TIME, heatmap.getPulseTime());
     }
+
+    @Test
+    public void setPulseTimeToPositiveLongWorksCorrectly() {
+        long newPulseTime = 1L;
+        heatmap.setPulseTime(newPulseTime);
+
+        Assert.assertEquals(newPulseTime, heatmap.getPulseTime());
+    }
 }
