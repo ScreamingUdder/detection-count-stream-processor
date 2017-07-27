@@ -9,11 +9,13 @@ public class AccumulatedImage implements ImageInterface {
     private int[] image;
 
     public AccumulatedImage(int imageSize) {
+        assert imageSize > 0;
         image = new int[imageSize];
         pulseTime = 0L;
     }
 
     public AccumulatedImage(int imageSize, Long pulseTime) {
+        assert imageSize > 0;
         assert pulseTime >= 0;
         this.pulseTime = pulseTime;
         image = new int[imageSize];
