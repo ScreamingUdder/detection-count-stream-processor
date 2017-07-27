@@ -77,6 +77,13 @@ public class AccumulatedImageTest {
         accumulatedImage.getFrequency(DEFAULT_IMAGE_SIZE);
     }
 
+    @Test
+    public void getFrequencyAfterSetFrequencyOfFirstIndexReturnsCorrect() {
+        int newFreq = 5;
+        accumulatedImage.setFrequency(0, 5);
+        Assert.assertEquals(newFreq, accumulatedImage.getFrequency(0));
+    }
+
 
 
 
