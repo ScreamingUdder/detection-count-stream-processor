@@ -1,4 +1,4 @@
-package EventMessage;
+package Image;
 
 /**
  * Heatmap Java Object for storing heatmap data in a static context
