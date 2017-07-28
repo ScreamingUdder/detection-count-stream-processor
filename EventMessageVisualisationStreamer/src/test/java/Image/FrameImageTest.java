@@ -7,7 +7,7 @@ import org.junit.Test;
 import java.security.InvalidParameterException;
 
 /**
- * JUnit tests for AccumulatedImage Java Object
+ * JUnit tests for AccumulatedImagePOJO Java Object
  * Created by ISIS, STFC on 27/07/2017.
  */
 public class FrameImageTest {
