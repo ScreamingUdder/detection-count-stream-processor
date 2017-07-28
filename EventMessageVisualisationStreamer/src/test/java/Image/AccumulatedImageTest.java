@@ -161,4 +161,16 @@ public class AccumulatedImageTest {
         Assert.assertEquals(0, accumulatedImage.getFrequency(0));
     }
 
+    @Test
+    public void addingNonZeroFrameImageToDefaultImageUpdatesValuesCorrectly() {
+        FrameImage frameImage = new FrameImage(DEFAULT_IMAGE_SIZE, DEFAULT_PULSE_TIME);
+        frameImage.incrementFrequency(0);
+        frameImage.incrementFrequency(1);
+        accumulatedImage.addFrameImage(frameImage);
+
+        Assert.assertEquals(1, frameImage.getFrequency(0));
+        Assert.assertEquals(1, frameImage.getFrequency(1));
+        Assert.assertEquals(0, frameImage.getFrequency(2));
+    }
+
 }
