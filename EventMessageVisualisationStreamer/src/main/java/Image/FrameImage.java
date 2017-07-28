@@ -12,14 +12,6 @@ public class FrameImage implements ImageInterface {
     private long pulseTime; // Must be positive
     private int[] image;
 
-    public FrameImage(int imageSize) {
-        if (imageSize <= 0) {
-            throw new InvalidParameterException(IMAGE_SIZE_ABOVE_ZERO_ERROR_MESSAGE);
-        }
-        image = new int[imageSize];
-        pulseTime = 0L;
-    }
-
     public FrameImage(int imageSize, Long pulseTime) {
         if (imageSize <= 0) {
             throw new InvalidParameterException(IMAGE_SIZE_ABOVE_ZERO_ERROR_MESSAGE);
