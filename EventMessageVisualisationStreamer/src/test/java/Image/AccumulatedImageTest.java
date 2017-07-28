@@ -34,13 +34,13 @@ public class AccumulatedImageTest {
     }
 
     @Test(expected = InvalidParameterException.class)
-    public void setPulseTimeToNegativeLongThrowsAssertionError() {
+    public void setPulseTimeToNegativeLongThrowsInvalidParameterException() {
         long newPulseTime = -1L;
         accumulatedImage.setPulseTime(newPulseTime);
     }
 
     @Test(expected = InvalidParameterException.class)
-    public void createNewImageWithNegativePulseTimeThrowsAssertionError() {
+    public void createNewImageWithNegativePulseTimeThrowsInvalidParameterException() {
         long newPulseTime = -1L;
         accumulatedImage = new AccumulatedImage(DEFAULT_IMAGE_SIZE, newPulseTime);
     }
@@ -53,12 +53,12 @@ public class AccumulatedImageTest {
     }
 
     @Test(expected = InvalidParameterException.class)
-    public void createNewImageWithNegativeSizeThrowsAssertionError() {
+    public void createNewImageWithNegativeSizeThrowsInvalidParameterException() {
         accumulatedImage = new AccumulatedImage(-1);
     }
 
     @Test(expected = InvalidParameterException.class)
-    public void createNewImageWithZeroSizeThrowsAssertionError() {
+    public void createNewImageWithZeroSizeThrowsInvalidParameterException() {
         accumulatedImage = new AccumulatedImage(0);
     }
 
@@ -78,17 +78,17 @@ public class AccumulatedImageTest {
     }
 
     @Test(expected = InvalidParameterException.class)
-    public void getFrequencyOfNegativeIndexThrowsAssertionError() {
+    public void getFrequencyOfNegativeIndexThrowsInvalidParameterException() {
         accumulatedImage.getFrequency(-1);
     }
 
     @Test(expected = InvalidParameterException.class)
-    public void getFrequencyOfOutOfBoundsDetectorThrowsAssertionError() {
+    public void getFrequencyOfOutOfBoundsDetectorThrowsInvalidParameterException() {
         accumulatedImage.getFrequency(9999);
     }
 
     @Test(expected = InvalidParameterException.class)
-    public void getFrequencyOfOutOfBoundsByOneDetectorThrowsAssertionError() {
+    public void getFrequencyOfOutOfBoundsByOneDetectorThrowsInvalidParameterException() {
         accumulatedImage.getFrequency(DEFAULT_IMAGE_SIZE);
     }
 
@@ -102,22 +102,22 @@ public class AccumulatedImageTest {
     }
 
     @Test(expected = InvalidParameterException.class)
-    public void setFrequencyOfNegativeDetectorThrowsAssertionError() {
+    public void setFrequencyOfNegativeDetectorThrowsInvalidParameterException() {
         accumulatedImage.setFrequency(-1, 5);
     }
 
     @Test(expected = InvalidParameterException.class)
-    public void setFrequencyOfOutOfBoundsDetectorThrowsAssertionError() {
+    public void setFrequencyOfOutOfBoundsDetectorThrowsInvalidParameterException() {
         accumulatedImage.setFrequency(9999, 5);
     }
 
     @Test(expected = InvalidParameterException.class)
-    public void setFrequencyOfOutOfBoundsByOneDetectorThrowsAssertionError() {
+    public void setFrequencyOfOutOfBoundsByOneDetectorThrowsInvalidParameterException() {
         accumulatedImage.setFrequency(DEFAULT_IMAGE_SIZE, 5);
     }
 
     @Test(expected = InvalidParameterException.class)
-    public void setFrequencyOfDetectorToNegativeThrowsAssertionError() {
+    public void setFrequencyOfDetectorToNegativeThrowsInvalidParameterException() {
         accumulatedImage.setFrequency(0, -1);
     }
 
@@ -130,18 +130,17 @@ public class AccumulatedImageTest {
     }
 
     @Test(expected = InvalidParameterException.class)
-    public void incrementFrequencyOfNegativeDetectorThrowsAssertionError() {
+    public void incrementFrequencyOfNegativeDetectorThrowsInvalidParameterException() {
         accumulatedImage.incrementFrequency(-1);
     }
 
     @Test(expected = InvalidParameterException.class)
-    public void incrementFrequencyOfOutOfBoundsDetectorThrowsAssertionError() {
+    public void incrementFrequencyOfOutOfBoundsDetectorThrowsInvalidParameterException() {
         accumulatedImage.incrementFrequency(9999);
     }
 
     @Test(expected = InvalidParameterException.class)
-    public void incrementFrequencyOfOutOfBoundsByOneDetectorThrowsAssertionError() {
+    public void incrementFrequencyOfOutOfBoundsByOneDetectorThrowsInvalidParameterException() {
         accumulatedImage.incrementFrequency(DEFAULT_IMAGE_SIZE);
     }
-
 }

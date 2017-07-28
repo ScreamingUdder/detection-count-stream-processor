@@ -34,13 +34,13 @@ public class FrameImageTest {
     }
 
     @Test(expected = InvalidParameterException.class)
-    public void setPulseTimeToNegativeLongThrowsAssertionError() {
+    public void setPulseTimeToNegativeLongThrowsInvalidParameterException() {
         long newPulseTime = -1L;
         frameImage.setPulseTime(newPulseTime);
     }
 
     @Test(expected = InvalidParameterException.class)
-    public void createNewImageWithNegativePulseTimeThrowsAssertionError() {
+    public void createNewImageWithNegativePulseTimeThrowsInvalidParameterException() {
         long newPulseTime = -1L;
         frameImage = new FrameImage(DEFAULT_IMAGE_SIZE, newPulseTime);
     }
@@ -53,12 +53,12 @@ public class FrameImageTest {
     }
 
     @Test(expected = InvalidParameterException.class)
-    public void createNewImageWithNegativeSizeThrowsAssertionError() {
+    public void createNewImageWithNegativeSizeThrowsInvalidParameterException() {
         frameImage = new FrameImage(-1);
     }
 
     @Test(expected = InvalidParameterException.class)
-    public void createNewImageWithZeroSizeThrowsAssertionError() {
+    public void createNewImageWithZeroSizeThrowsInvalidParameterException() {
         frameImage = new FrameImage(0);
     }
 
@@ -78,17 +78,17 @@ public class FrameImageTest {
     }
 
     @Test(expected = InvalidParameterException.class)
-    public void getFrequencyOfNegativeIndexThrowsAssertionError() {
+    public void getFrequencyOfNegativeIndexThrowsInvalidParameterException() {
         frameImage.getFrequency(-1);
     }
 
     @Test(expected = InvalidParameterException.class)
-    public void getFrequencyOfOutOfBoundsDetectorThrowsAssertionError() {
+    public void getFrequencyOfOutOfBoundsDetectorThrowsInvalidParameterException() {
         frameImage.getFrequency(9999);
     }
 
     @Test(expected = InvalidParameterException.class)
-    public void getFrequencyOfOutOfBoundsByOneDetectorThrowsAssertionError() {
+    public void getFrequencyOfOutOfBoundsByOneDetectorThrowsInvalidParameterException() {
         frameImage.getFrequency(DEFAULT_IMAGE_SIZE);
     }
 
@@ -102,22 +102,22 @@ public class FrameImageTest {
     }
 
     @Test(expected = InvalidParameterException.class)
-    public void setFrequencyOfNegativeDetectorThrowsAssertionError() {
+    public void setFrequencyOfNegativeDetectorThrowsInvalidParameterException() {
         frameImage.setFrequency(-1, 5);
     }
 
     @Test(expected = InvalidParameterException.class)
-    public void setFrequencyOfOutOfBoundsDetectorThrowsAssertionError() {
+    public void setFrequencyOfOutOfBoundsDetectorThrowsInvalidParameterException() {
         frameImage.setFrequency(9999, 5);
     }
 
     @Test(expected = InvalidParameterException.class)
-    public void setFrequencyOfOutOfBoundsByOneDetectorThrowsAssertionError() {
+    public void setFrequencyOfOutOfBoundsByOneDetectorThrowsInvalidParameterException() {
         frameImage.setFrequency(DEFAULT_IMAGE_SIZE, 5);
     }
 
     @Test(expected = InvalidParameterException.class)
-    public void setFrequencyOfDetectorToNegativeThrowsAssertionError() {
+    public void setFrequencyOfDetectorToNegativeThrowsInvalidParameterException() {
         frameImage.setFrequency(0, -1);
     }
 
@@ -130,17 +130,17 @@ public class FrameImageTest {
     }
 
     @Test(expected = InvalidParameterException.class)
-    public void incrementFrequencyOfNegativeDetectorThrowsAssertionError() {
+    public void incrementFrequencyOfNegativeDetectorThrowsInvalidParameterException() {
         frameImage.incrementFrequency(-1);
     }
 
     @Test(expected = InvalidParameterException.class)
-    public void incrementFrequencyOfOutOfBoundsDetectorThrowsAssertionError() {
+    public void incrementFrequencyOfOutOfBoundsDetectorThrowsInvalidParameterException() {
         frameImage.incrementFrequency(9999);
     }
 
     @Test(expected = InvalidParameterException.class)
-    public void incrementFrequencyOfOutOfBoundsByOneDetectorThrowsAssertionError() {
+    public void incrementFrequencyOfOutOfBoundsByOneDetectorThrowsInvalidParameterException() {
         frameImage.incrementFrequency(DEFAULT_IMAGE_SIZE);
     }
 
