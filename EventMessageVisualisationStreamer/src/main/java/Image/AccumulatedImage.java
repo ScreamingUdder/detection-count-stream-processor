@@ -71,4 +71,23 @@ public class AccumulatedImage implements ImageInterface {
         }
         image[detector]++;
     }
+
+    /**
+     * Function to take a current frame image and update the image frequencies.
+     * Accumulated image pulse time is changed to the frame image's value.
+     * @param frameImage The frame image must be the same size as the accumulated image
+     * and its indexes must correspond to the same detectors.
+     * Passed frame image is assumed to be most recent, or at least more recent than the current pulse tine.
+     */
+    public void addFrameImage(FrameImage frameImage) {
+        if (frameImage.getImageSize() != this.getImageSize()) {
+            throw new InvalidParameterException(IMAGE_SIZE_MISMATCH_ERROR_MESSAGE);
+        }
+        this.setPulseTime(frameImage.getPulseTime());
+
+        for (int i = 0; i < this.getImageSize(); i++) {
+            int newFreq = this.getFrequency(i) + frameImage.getFrequency(i);
+            this.setFrequency(i, newFreq);
+        }
+    }
 }
