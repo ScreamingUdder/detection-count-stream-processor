@@ -143,4 +143,13 @@ public class AccumulatedImageTest {
     public void incrementFrequencyOfOutOfBoundsByOneDetectorThrowsInvalidParameterException() {
         accumulatedImage.incrementFrequency(DEFAULT_IMAGE_SIZE);
     }
+
+    // Add frame image tests
+
+    @Test(expected = InvalidParameterException.class)
+    public void addingFrameImageWithNonMatchingSizeThrowsInvalidParameterException() {
+        FrameImage frameImage = new FrameImage(1, DEFAULT_PULSE_TIME);
+        accumulatedImage.addFrameImage(frameImage);
+    }
+
 }
