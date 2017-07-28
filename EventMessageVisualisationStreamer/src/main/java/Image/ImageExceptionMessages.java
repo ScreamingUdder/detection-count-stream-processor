@@ -9,4 +9,5 @@ class ImageExceptionMessages {
     static final String IMAGE_SIZE_ABOVE_ZERO_ERROR_MESSAGE = "Image size must be above zero.";
     static final String PULSE_TIME_POSITIVE_ERROR_MESSAGE = "PulseTime cannot be negative.";
     static final String FREQUENCY_POSITIVE_ERROR_MESSAGE = "The new frequency must be positive.";
+    static final String IMAGE_SIZE_MISMATCH_ERROR_MESSAGE = "The two images must be of the same size.";
 }
