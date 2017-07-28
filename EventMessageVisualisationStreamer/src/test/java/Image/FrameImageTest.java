@@ -62,6 +62,14 @@ public class FrameImageTest {
         accumulatedImage = new FrameImage(0);
     }
 
+    // Get image tests
+
+    @Test
+    public void getImageReturnsEmptyArrayOfCorrectSizeOnDefaultImage() {
+        Assert.assertEquals(DEFAULT_IMAGE_SIZE, accumulatedImage.getImage().length);
+        Assert.assertEquals(0, accumulatedImage.getImage()[0]);
+    }
+
     // Get frequency tests.
 
     @Test
