@@ -54,12 +54,12 @@ public class FrameImageTest {
 
     @Test(expected = InvalidParameterException.class)
     public void createNewImageWithNegativeSizeThrowsInvalidParameterException() {
-        frameImage = new FrameImage(-1);
+        frameImage = new FrameImage(-1, DEFAULT_PULSE_TIME);
     }
 
     @Test(expected = InvalidParameterException.class)
     public void createNewImageWithZeroSizeThrowsInvalidParameterException() {
-        frameImage = new FrameImage(0);
+        frameImage = new FrameImage(0, DEFAULT_PULSE_TIME);
     }
 
     // Get image tests
