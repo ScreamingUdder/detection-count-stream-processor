@@ -173,4 +173,13 @@ public class AccumulatedImageTest {
         Assert.assertEquals(0, frameImage.getFrequency(2));
     }
 
+    @Test
+    public void addingFrameImageWithDifferentPulseTimeToDefaultImageUpdatesValueCorrectly() {
+        long pulseTime = 1L;
+        FrameImage frameImage = new FrameImage(DEFAULT_IMAGE_SIZE, pulseTime);
+        accumulatedImage.addFrameImage(frameImage);
+
+        Assert.assertEquals(pulseTime, accumulatedImage.getPulseTime());
+    }
+
 }
