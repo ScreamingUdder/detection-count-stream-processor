@@ -45,6 +45,10 @@ public class AccumulatedImage implements ImageInterface {
         return image.length;
     }
 
+    public int[] getImage() {
+        return image;
+    }
+
     public int getFrequency(int detector) {
         if (detector < 0 || detector >= getImageSize()) {
             throw new InvalidParameterException(DETECTOR_WITHIN_BOUNDS_ERROR_MESSAGE);
