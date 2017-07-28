@@ -152,4 +152,13 @@ public class AccumulatedImageTest {
         accumulatedImage.addFrameImage(frameImage);
     }
 
+    @Test
+    public void addingDefaultFrameImageToDefaultImageDoesNotAffectSizeOrContents() {
+        FrameImage frameImage = new FrameImage(DEFAULT_IMAGE_SIZE, DEFAULT_PULSE_TIME);
+        accumulatedImage.addFrameImage(frameImage);
+
+        Assert.assertEquals(DEFAULT_IMAGE_SIZE, accumulatedImage.getImageSize());
+        Assert.assertEquals(0, accumulatedImage.getFrequency(0));
+    }
+
 }
