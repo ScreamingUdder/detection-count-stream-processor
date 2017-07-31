@@ -1,6 +1,7 @@
 package Image;
 
 import java.security.InvalidParameterException;
+import java.util.TreeMap;
 
 import static Image.ImageExceptionMessages.*;
 
@@ -10,24 +11,15 @@ import static Image.ImageExceptionMessages.*;
  */
 public class AccumulatedImagePOJO implements ImageInterface {
     private long pulseTime; // Must be positive
-    private int[] image;
+    private TreeMap image;
+    // Assumed to be TreeMap<int, int>. Integer - int interactions are more trouble than they're worth.
 
-    public AccumulatedImagePOJO(int imageSize) {
-        if (imageSize <= 0) {
-            throw new InvalidParameterException(IMAGE_SIZE_ABOVE_ZERO_ERROR_MESSAGE);
-        }
-        image = new int[imageSize];
-        pulseTime = 0L;
-    }
-
-    public AccumulatedImagePOJO(int imageSize, Long pulseTime) {
-        if (imageSize <= 0) {
-            throw new InvalidParameterException(IMAGE_SIZE_ABOVE_ZERO_ERROR_MESSAGE);
-        } else if (pulseTime < 0) {
+    public AccumulatedImagePOJO(Long pulseTime) {
+        if (pulseTime < 0) {
             throw new InvalidParameterException(PULSE_TIME_POSITIVE_ERROR_MESSAGE);
         }
         this.pulseTime = pulseTime;
-        image = new int[imageSize];
+        image = new TreeMap();
     }
 
     public long getPulseTime() {
@@ -42,34 +34,37 @@ public class AccumulatedImagePOJO implements ImageInterface {
     }
 
     public int getImageSize() {
-        return image.length;
+        return image.size();
     }
 
-    public int[] getImage() {
+    public TreeMap getImage() {
         return image;
     }
 
     public int getFrequency(int detector) {
-        if (detector < 0 || detector >= getImageSize()) {
-            throw new InvalidParameterException(DETECTOR_WITHIN_BOUNDS_ERROR_MESSAGE);
+        if (!image.containsKey(detector)) {
+            throw new InvalidParameterException(MISSING_KEY_ERROR_MESSAGE);
         }
-        return image[detector];
+        return (int) image.get(detector);
     }
 
     public void setFrequency(int detector, int newFreq) {
-        if (detector < 0 || detector >= getImageSize()) {
-            throw new InvalidParameterException(DETECTOR_WITHIN_BOUNDS_ERROR_MESSAGE);
+        if (detector < 0) {
+            throw new InvalidParameterException(DETECTOR_ID_POSITIVE_ERROR_MESSAGE);
         } else if (newFreq < 0) {
             throw new InvalidParameterException(FREQUENCY_POSITIVE_ERROR_MESSAGE);
         }
-        image[detector] = newFreq;
+        image.put(detector,newFreq);
     }
 
     public void incrementFrequency(int detector) {
-        if (detector < 0 || detector >= getImageSize()) {
-            throw new InvalidParameterException(DETECTOR_WITHIN_BOUNDS_ERROR_MESSAGE);
+        int oldFreq = 0;
+        if (image.containsKey(detector)) {
+            oldFreq = (int) image.get(detector);
+        } else if (detector < 0) {
+            throw  new InvalidParameterException(DETECTOR_ID_POSITIVE_ERROR_MESSAGE);
         }
-        image[detector]++;
+        image.put(detector, ++oldFreq);
     }
 
     /**
@@ -80,14 +75,15 @@ public class AccumulatedImagePOJO implements ImageInterface {
      * Passed frame image is assumed to be most recent, or at least more recent than the current pulse tine.
      */
     public void addFrameImage(FrameImage frameImage) {
-        if (frameImage.getImageSize() != this.getImageSize()) {
-            throw new InvalidParameterException(IMAGE_SIZE_MISMATCH_ERROR_MESSAGE);
-        }
         this.setPulseTime(frameImage.getPulseTime());
 
-        for (int i = 0; i < this.getImageSize(); i++) {
-            int newFreq = this.getFrequency(i) + frameImage.getFrequency(i);
-            this.setFrequency(i, newFreq);
+        for (Object detector: frameImage.getImage().keySet()) {
+            int detectorId = (int) detector;
+            int newFreq = frameImage.getFrequency(detectorId);
+            if (this.getImage().containsKey(detectorId)) {
+                newFreq += this.getFrequency(detectorId);
+            }
+            this.setFrequency(detectorId, newFreq);
         }
     }
 }
