@@ -5,14 +5,14 @@ import java.security.InvalidParameterException;
 import static Image.ImageExceptionMessages.*;
 
 /**
- * AccumulatedImage Java Object for storing heatmap data in a static context
+ * AccumulatedImagePOJO Java Object for storing heatmap data in a static context
  * Created by ISIS, STFC on 27/07/2017.
  */
-public class AccumulatedImage implements ImageInterface {
+public class AccumulatedImagePOJO implements ImageInterface {
     private long pulseTime; // Must be positive
     private int[] image;
 
-    public AccumulatedImage(int imageSize) {
+    public AccumulatedImagePOJO(int imageSize) {
         if (imageSize <= 0) {
             throw new InvalidParameterException(IMAGE_SIZE_ABOVE_ZERO_ERROR_MESSAGE);
         }
@@ -20,7 +20,7 @@ public class AccumulatedImage implements ImageInterface {
         pulseTime = 0L;
     }
 
-    public AccumulatedImage(int imageSize, Long pulseTime) {
+    public AccumulatedImagePOJO(int imageSize, Long pulseTime) {
         if (imageSize <= 0) {
             throw new InvalidParameterException(IMAGE_SIZE_ABOVE_ZERO_ERROR_MESSAGE);
         } else if (pulseTime < 0) {

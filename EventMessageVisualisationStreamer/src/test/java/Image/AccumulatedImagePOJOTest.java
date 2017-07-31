@@ -7,89 +7,89 @@ import org.junit.Test;
 import java.security.InvalidParameterException;
 
 /**
- * JUnit tests for AccumulatedImage Java Object
+ * JUnit tests for AccumulatedImagePOJO Java Object
  * Created by ISIS, STFC on 27/07/2017.
  */
-public class AccumulatedImageTest {
+public class AccumulatedImagePOJOTest {
     private final long DEFAULT_PULSE_TIME = 0L;
     private final int DEFAULT_IMAGE_SIZE = 1000;
-    private AccumulatedImage accumulatedImage;
+    private AccumulatedImagePOJO accumulatedImagePOJO;
     @Before
     public void setUp() {
-        accumulatedImage = new AccumulatedImage(DEFAULT_IMAGE_SIZE, DEFAULT_PULSE_TIME);
+        accumulatedImagePOJO = new AccumulatedImagePOJO(DEFAULT_IMAGE_SIZE, DEFAULT_PULSE_TIME);
     }
 
     // Pulse time tests.
     @Test
     public void getPulseTimeReturnsCorrectOnDefaultHeatmap() {
-        Assert.assertEquals(DEFAULT_PULSE_TIME, accumulatedImage.getPulseTime());
+        Assert.assertEquals(DEFAULT_PULSE_TIME, accumulatedImagePOJO.getPulseTime());
     }
 
     @Test
     public void setPulseTimeToPositiveLongWorksCorrectly() {
         long newPulseTime = 1L;
-        accumulatedImage.setPulseTime(newPulseTime);
+        accumulatedImagePOJO.setPulseTime(newPulseTime);
 
-        Assert.assertEquals(newPulseTime, accumulatedImage.getPulseTime());
+        Assert.assertEquals(newPulseTime, accumulatedImagePOJO.getPulseTime());
     }
 
     @Test(expected = InvalidParameterException.class)
     public void setPulseTimeToNegativeLongThrowsInvalidParameterException() {
         long newPulseTime = -1L;
-        accumulatedImage.setPulseTime(newPulseTime);
+        accumulatedImagePOJO.setPulseTime(newPulseTime);
     }
 
     @Test(expected = InvalidParameterException.class)
     public void createNewImageWithNegativePulseTimeThrowsInvalidParameterException() {
         long newPulseTime = -1L;
-        accumulatedImage = new AccumulatedImage(DEFAULT_IMAGE_SIZE, newPulseTime);
+        accumulatedImagePOJO = new AccumulatedImagePOJO(DEFAULT_IMAGE_SIZE, newPulseTime);
     }
 
     // Image size tests.
 
     @Test
     public void getImageSizeCorrectOnDefaultImage() {
-        Assert.assertEquals(DEFAULT_IMAGE_SIZE, accumulatedImage.getImageSize());
+        Assert.assertEquals(DEFAULT_IMAGE_SIZE, accumulatedImagePOJO.getImageSize());
     }
 
     @Test(expected = InvalidParameterException.class)
     public void createNewImageWithNegativeSizeThrowsInvalidParameterException() {
-        accumulatedImage = new AccumulatedImage(-1);
+        accumulatedImagePOJO = new AccumulatedImagePOJO(-1);
     }
 
     @Test(expected = InvalidParameterException.class)
     public void createNewImageWithZeroSizeThrowsInvalidParameterException() {
-        accumulatedImage = new AccumulatedImage(0);
+        accumulatedImagePOJO = new AccumulatedImagePOJO(0);
     }
 
     // Get image tests
 
     @Test
     public void getImageReturnsEmptyArrayOfCorrectSizeOnDefaultImage() {
-        Assert.assertEquals(DEFAULT_IMAGE_SIZE, accumulatedImage.getImage().length);
-        Assert.assertEquals(0, accumulatedImage.getImage()[0]);
+        Assert.assertEquals(DEFAULT_IMAGE_SIZE, accumulatedImagePOJO.getImage().length);
+        Assert.assertEquals(0, accumulatedImagePOJO.getImage()[0]);
     }
 
     // Get frequency tests.
 
     @Test
     public void getFrequencyOfFirstIndexReturnsZeroOnDefaultImage() {
-        Assert.assertEquals(0, accumulatedImage.getFrequency(0));
+        Assert.assertEquals(0, accumulatedImagePOJO.getFrequency(0));
     }
 
     @Test(expected = InvalidParameterException.class)
     public void getFrequencyOfNegativeIndexThrowsInvalidParameterException() {
-        accumulatedImage.getFrequency(-1);
+        accumulatedImagePOJO.getFrequency(-1);
     }
 
     @Test(expected = InvalidParameterException.class)
     public void getFrequencyOfOutOfBoundsDetectorThrowsInvalidParameterException() {
-        accumulatedImage.getFrequency(9999);
+        accumulatedImagePOJO.getFrequency(9999);
     }
 
     @Test(expected = InvalidParameterException.class)
     public void getFrequencyOfOutOfBoundsByOneDetectorThrowsInvalidParameterException() {
-        accumulatedImage.getFrequency(DEFAULT_IMAGE_SIZE);
+        accumulatedImagePOJO.getFrequency(DEFAULT_IMAGE_SIZE);
     }
 
     // Set frequency tests.
@@ -97,51 +97,51 @@ public class AccumulatedImageTest {
     @Test
     public void getFrequencyAfterSetFrequencyOfFirstIndexReturnsCorrect() {
         int newFreq = 5;
-        accumulatedImage.setFrequency(0, 5);
-        Assert.assertEquals(newFreq, accumulatedImage.getFrequency(0));
+        accumulatedImagePOJO.setFrequency(0, 5);
+        Assert.assertEquals(newFreq, accumulatedImagePOJO.getFrequency(0));
     }
 
     @Test(expected = InvalidParameterException.class)
     public void setFrequencyOfNegativeDetectorThrowsInvalidParameterException() {
-        accumulatedImage.setFrequency(-1, 5);
+        accumulatedImagePOJO.setFrequency(-1, 5);
     }
 
     @Test(expected = InvalidParameterException.class)
     public void setFrequencyOfOutOfBoundsDetectorThrowsInvalidParameterException() {
-        accumulatedImage.setFrequency(9999, 5);
+        accumulatedImagePOJO.setFrequency(9999, 5);
     }
 
     @Test(expected = InvalidParameterException.class)
     public void setFrequencyOfOutOfBoundsByOneDetectorThrowsInvalidParameterException() {
-        accumulatedImage.setFrequency(DEFAULT_IMAGE_SIZE, 5);
+        accumulatedImagePOJO.setFrequency(DEFAULT_IMAGE_SIZE, 5);
     }
 
     @Test(expected = InvalidParameterException.class)
     public void setFrequencyOfDetectorToNegativeThrowsInvalidParameterException() {
-        accumulatedImage.setFrequency(0, -1);
+        accumulatedImagePOJO.setFrequency(0, -1);
     }
 
     // Increment frequency tests.
 
     @Test
     public void getFrequencyAfterIncrementFrequencyOfFirstIndexReturnsCorrect() {
-        accumulatedImage.incrementFrequency(0);
-        Assert.assertEquals(1, accumulatedImage.getFrequency(0));
+        accumulatedImagePOJO.incrementFrequency(0);
+        Assert.assertEquals(1, accumulatedImagePOJO.getFrequency(0));
     }
 
     @Test(expected = InvalidParameterException.class)
     public void incrementFrequencyOfNegativeDetectorThrowsInvalidParameterException() {
-        accumulatedImage.incrementFrequency(-1);
+        accumulatedImagePOJO.incrementFrequency(-1);
     }
 
     @Test(expected = InvalidParameterException.class)
     public void incrementFrequencyOfOutOfBoundsDetectorThrowsInvalidParameterException() {
-        accumulatedImage.incrementFrequency(9999);
+        accumulatedImagePOJO.incrementFrequency(9999);
     }
 
     @Test(expected = InvalidParameterException.class)
     public void incrementFrequencyOfOutOfBoundsByOneDetectorThrowsInvalidParameterException() {
-        accumulatedImage.incrementFrequency(DEFAULT_IMAGE_SIZE);
+        accumulatedImagePOJO.incrementFrequency(DEFAULT_IMAGE_SIZE);
     }
 
     // Add frame image tests
@@ -149,16 +149,16 @@ public class AccumulatedImageTest {
     @Test(expected = InvalidParameterException.class)
     public void addingFrameImageWithNonMatchingSizeThrowsInvalidParameterException() {
         FrameImage frameImage = new FrameImage(1, DEFAULT_PULSE_TIME);
-        accumulatedImage.addFrameImage(frameImage);
+        accumulatedImagePOJO.addFrameImage(frameImage);
     }
 
     @Test
     public void addingDefaultFrameImageToDefaultImageDoesNotAffectSizeOrContents() {
         FrameImage frameImage = new FrameImage(DEFAULT_IMAGE_SIZE, DEFAULT_PULSE_TIME);
-        accumulatedImage.addFrameImage(frameImage);
+        accumulatedImagePOJO.addFrameImage(frameImage);
 
-        Assert.assertEquals(DEFAULT_IMAGE_SIZE, accumulatedImage.getImageSize());
-        Assert.assertEquals(0, accumulatedImage.getFrequency(0));
+        Assert.assertEquals(DEFAULT_IMAGE_SIZE, accumulatedImagePOJO.getImageSize());
+        Assert.assertEquals(0, accumulatedImagePOJO.getFrequency(0));
     }
 
     @Test
@@ -166,7 +166,7 @@ public class AccumulatedImageTest {
         FrameImage frameImage = new FrameImage(DEFAULT_IMAGE_SIZE, DEFAULT_PULSE_TIME);
         frameImage.incrementFrequency(0);
         frameImage.incrementFrequency(1);
-        accumulatedImage.addFrameImage(frameImage);
+        accumulatedImagePOJO.addFrameImage(frameImage);
 
         Assert.assertEquals(1, frameImage.getFrequency(0));
         Assert.assertEquals(1, frameImage.getFrequency(1));
@@ -177,26 +177,26 @@ public class AccumulatedImageTest {
     public void addingFrameImageWithDifferentPulseTimeToDefaultImageUpdatesValueCorrectly() {
         long pulseTime = 1L;
         FrameImage frameImage = new FrameImage(DEFAULT_IMAGE_SIZE, pulseTime);
-        accumulatedImage.addFrameImage(frameImage);
+        accumulatedImagePOJO.addFrameImage(frameImage);
 
-        Assert.assertEquals(pulseTime, accumulatedImage.getPulseTime());
+        Assert.assertEquals(pulseTime, accumulatedImagePOJO.getPulseTime());
     }
 
     @Test
     public void addingNonZeroFrameImageToNonZeroImageUpdatesValuesCorrectly() {
-        accumulatedImage.incrementFrequency(0);
-        accumulatedImage.incrementFrequency(1);
-        accumulatedImage.incrementFrequency(2);
+        accumulatedImagePOJO.incrementFrequency(0);
+        accumulatedImagePOJO.incrementFrequency(1);
+        accumulatedImagePOJO.incrementFrequency(2);
 
         FrameImage frameImage = new FrameImage(DEFAULT_IMAGE_SIZE, DEFAULT_PULSE_TIME);
         frameImage.incrementFrequency(0);
         frameImage.incrementFrequency(1);
-        accumulatedImage.addFrameImage(frameImage);
+        accumulatedImagePOJO.addFrameImage(frameImage);
 
-        Assert.assertEquals(2, accumulatedImage.getFrequency(0));
-        Assert.assertEquals(2,accumulatedImage.getFrequency(1));
-        Assert.assertEquals(1, accumulatedImage.getFrequency(2));
-        Assert.assertEquals(0, accumulatedImage.getFrequency(3));
+        Assert.assertEquals(2, accumulatedImagePOJO.getFrequency(0));
+        Assert.assertEquals(2, accumulatedImagePOJO.getFrequency(1));
+        Assert.assertEquals(1, accumulatedImagePOJO.getFrequency(2));
+        Assert.assertEquals(0, accumulatedImagePOJO.getFrequency(3));
     }
 
 }
