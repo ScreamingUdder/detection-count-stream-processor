@@ -1,6 +1,7 @@
 package Image;
 
 import java.security.InvalidParameterException;
+import java.util.TreeMap;
 
 import static Image.ImageExceptionMessages.*;
 
@@ -10,16 +11,15 @@ import static Image.ImageExceptionMessages.*;
  */
 public class FrameImage implements ImageInterface {
     private long pulseTime; // Must be positive
-    private int[] image;
+    private TreeMap image;
+    // Assumed to be TreeMap<int, int>. Integer - int interactions are more trouble than they're worth.
 
-    public FrameImage(int imageSize, Long pulseTime) {
-        if (imageSize <= 0) {
-            throw new InvalidParameterException(IMAGE_SIZE_ABOVE_ZERO_ERROR_MESSAGE);
-        } else if (pulseTime < 0) {
+    public FrameImage(Long pulseTime) {
+        if (pulseTime < 0) {
             throw new InvalidParameterException(PULSE_TIME_POSITIVE_ERROR_MESSAGE);
         }
         this.pulseTime = pulseTime;
-        image = new int[imageSize];
+        image = new TreeMap();
     }
 
     public long getPulseTime() {
@@ -34,33 +34,36 @@ public class FrameImage implements ImageInterface {
     }
 
     public int getImageSize() {
-        return image.length;
+        return image.size();
     }
 
-    public int[] getImage() {
+    public TreeMap getImage() {
         return image;
     }
 
     public int getFrequency(int detector) {
-        if (detector < 0 || detector >= getImageSize()) {
-            throw new InvalidParameterException(DETECTOR_WITHIN_BOUNDS_ERROR_MESSAGE);
+        if (!image.containsKey(detector)) {
+            throw new InvalidParameterException(MISSING_KEY_ERROR_MESSAGE);
         }
-        return image[detector];
+        return (int) image.get(detector);
     }
 
     public void setFrequency(int detector, int newFreq) {
-        if (detector < 0 || detector >= getImageSize()) {
-            throw new InvalidParameterException(DETECTOR_WITHIN_BOUNDS_ERROR_MESSAGE);
+        if (detector < 0) {
+            throw new InvalidParameterException(DETECTOR_ID_POSITIVE_ERROR_MESSAGE);
         } else if (newFreq < 0) {
             throw new InvalidParameterException(FREQUENCY_POSITIVE_ERROR_MESSAGE);
         }
-        image[detector] = newFreq;
+        image.put(detector,newFreq);
     }
 
     public void incrementFrequency(int detector) {
-        if (detector < 0 || detector >= getImageSize()) {
-            throw new InvalidParameterException(DETECTOR_WITHIN_BOUNDS_ERROR_MESSAGE);
+        int oldFreq = 0;
+        if (image.containsKey(detector)) {
+            oldFreq = (int) image.get(detector);
+        } else if (detector < 0) {
+            throw  new InvalidParameterException(DETECTOR_ID_POSITIVE_ERROR_MESSAGE);
         }
-        image[detector]++;
+        image.put(detector, ++oldFreq);
     }
 }
