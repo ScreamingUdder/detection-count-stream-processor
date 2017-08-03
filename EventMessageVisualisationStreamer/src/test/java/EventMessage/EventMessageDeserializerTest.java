@@ -10,15 +10,17 @@ import static org.junit.Assert.assertArrayEquals;
 import static org.junit.Assert.assertEquals;
 
 /**
- * JUnit tests for EventMessageToEventMessagePOJO utility class.
+ * JUnit tests for EventMessageDeserializer utility class.
  * Created by ISIS, STFC on 12/06/2017.
  */
 @SuppressWarnings("checkstyle:javadocmethod")
-public class EventMessageToEventMessagePOJOTest {
+public class EventMessageDeserializerTest {
     private static final long DEFAULT_MESSAGE_ID = 1;
     private static final long DEFAULT_PULSE_TIME = 1;
     private static final int[] DEFAULT_DETECTORS = new int[10];
+    private static final String DEFAULT_TOPIC = "DetectionEvents";
     private byte[] eventMessageBytes;
+    private static EventMessageDeserializer eventMessageDeserializer;
     @Before
     public void setUp() throws Exception {
         // Fill detectors array
@@ -39,6 +41,8 @@ public class EventMessageToEventMessagePOJOTest {
         int event = EventMessage.endEventMessage(builder);
         builder.finish(event);
         eventMessageBytes = builder.sizedByteArray();
+
+        eventMessageDeserializer = new EventMessageDeserializer();
     }
 
     private int[] arrayListToNative(ArrayList<Integer> arrayList) {
@@ -51,21 +55,21 @@ public class EventMessageToEventMessagePOJOTest {
 
     @Test
     public void getMessageIdReturnsCorrectWhenConvertingDefaultEventMessage() {
-        EventMessagePOJO eventMessagePOJO = EventMessageToEventMessagePOJO.convert(eventMessageBytes);
+        EventMessagePOJO eventMessagePOJO = eventMessageDeserializer.deserialize(DEFAULT_TOPIC, eventMessageBytes);
         int messageId = eventMessagePOJO.getMessageId();
         assertEquals(DEFAULT_MESSAGE_ID, messageId);
     }
 
     @Test
     public void getPulseTimeReturnsCorrectWhenConvertingDefaultEventMessage() {
-        EventMessagePOJO eventMessagePOJO = EventMessageToEventMessagePOJO.convert(eventMessageBytes);
+        EventMessagePOJO eventMessagePOJO = eventMessageDeserializer.deserialize(DEFAULT_TOPIC, eventMessageBytes);
         long pulseTime = eventMessagePOJO.getPulseTime();
         assertEquals(DEFAULT_PULSE_TIME, pulseTime);
     }
 
     @Test
     public void getDetectorsReturnsCorrectWhenConvertingDefaultEventMessage() {
-        EventMessagePOJO eventMessagePOJO = EventMessageToEventMessagePOJO.convert(eventMessageBytes);
+        EventMessagePOJO eventMessagePOJO = eventMessageDeserializer.deserialize(DEFAULT_TOPIC, eventMessageBytes);
         ArrayList<Integer> detectorIds = eventMessagePOJO.getDetectors();
         int[] nativeDetectorIds = arrayListToNative(detectorIds);
         assertArrayEquals(DEFAULT_DETECTORS, nativeDetectorIds);
@@ -73,14 +77,14 @@ public class EventMessageToEventMessagePOJOTest {
 
     @Test
     public void getDetectorReturnsCorrectGettingFirstDetector() {
-        EventMessagePOJO eventMessagePOJO = EventMessageToEventMessagePOJO.convert(eventMessageBytes);
+        EventMessagePOJO eventMessagePOJO = eventMessageDeserializer.deserialize(DEFAULT_TOPIC, eventMessageBytes);
         int detectorId = eventMessagePOJO.getDetector(0);
         assertEquals(DEFAULT_DETECTORS[0], detectorId);
     }
 
     @Test
     public void getDetectorReturnsCorrectGettingLastDetector() {
-        EventMessagePOJO eventMessagePOJO = EventMessageToEventMessagePOJO.convert(eventMessageBytes);
+        EventMessagePOJO eventMessagePOJO = eventMessageDeserializer.deserialize(DEFAULT_TOPIC, eventMessageBytes);
         int detectorId = eventMessagePOJO.getDetector(DEFAULT_DETECTORS.length - 1);
         assertEquals(DEFAULT_DETECTORS[DEFAULT_DETECTORS.length - 1], detectorId);
     }

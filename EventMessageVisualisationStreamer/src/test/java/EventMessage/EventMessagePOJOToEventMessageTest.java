@@ -18,6 +18,7 @@ import static org.junit.Assert.assertNotNull;
 public class EventMessagePOJOToEventMessageTest {
     private static final int DEFAULT_MESSAGE_ID = 0;
     private static final int DEFAULT_PULSE_TIME = 0;
+    private static final String DEFAULT_TOPIC = "Detection Events";
     private EventMessagePOJO eventMessagePOJO;
 
     @Before
@@ -60,7 +61,8 @@ public class EventMessagePOJOToEventMessageTest {
     @Test
     public void getMessageIDCorrectWhenConvertingDefaultPOJO() {
         byte[] eventMessage = EventMessagePOJOToEventMessage.convert(eventMessagePOJO);
-        EventMessagePOJO result = EventMessageToEventMessagePOJO.convert(eventMessage);
+        EventMessageDeserializer eventMessageDeserializer = new EventMessageDeserializer();
+        EventMessagePOJO result = eventMessageDeserializer.deserialize(DEFAULT_TOPIC, eventMessage);
 
         assertEquals(DEFAULT_MESSAGE_ID, result.getMessageId());
     }
@@ -68,7 +70,8 @@ public class EventMessagePOJOToEventMessageTest {
     @Test
     public void getPulseTimeCorrectWhenConvertingDefaultPOJO() {
         byte[] eventMessage = EventMessagePOJOToEventMessage.convert(eventMessagePOJO);
-        EventMessagePOJO result = EventMessageToEventMessagePOJO.convert(eventMessage);
+        EventMessageDeserializer eventMessageDeserializer = new EventMessageDeserializer();
+        EventMessagePOJO result = eventMessageDeserializer.deserialize(DEFAULT_TOPIC, eventMessage);
 
         assertEquals(DEFAULT_PULSE_TIME, result.getPulseTime());
     }
@@ -76,7 +79,8 @@ public class EventMessagePOJOToEventMessageTest {
     @Test
     public void getDetectorsReturnsNullWhenConvertingDefaultPOJO() {
         byte[] eventMessage = EventMessagePOJOToEventMessage.convert(eventMessagePOJO);
-        EventMessagePOJO result = EventMessageToEventMessagePOJO.convert(eventMessage);
+        EventMessageDeserializer eventMessageDeserializer = new EventMessageDeserializer();
+        EventMessagePOJO result = eventMessageDeserializer.deserialize(DEFAULT_TOPIC, eventMessage);
 
         assertEquals(new ArrayList<Integer>(), result.getDetectors());
     }
@@ -86,7 +90,8 @@ public class EventMessagePOJOToEventMessageTest {
         eventMessagePOJO.addDetector(1);
         eventMessagePOJO.addDetector(2);
         byte[] eventMessage = EventMessagePOJOToEventMessage.convert(eventMessagePOJO);
-        EventMessagePOJO result = EventMessageToEventMessagePOJO.convert(eventMessage);
+        EventMessageDeserializer eventMessageDeserializer = new EventMessageDeserializer();
+        EventMessagePOJO result = eventMessageDeserializer.deserialize(DEFAULT_TOPIC, eventMessage);
 
         assertEquals(2, result.getDetectors().size());
         assertEquals(1,result.getDetector(0));
