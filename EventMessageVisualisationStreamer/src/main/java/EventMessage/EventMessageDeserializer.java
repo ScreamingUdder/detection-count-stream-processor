@@ -6,7 +6,7 @@ import java.util.Map;
  * Utility class for converting Event Message Flat Buffer objects to EventMessagePOJOs.
  * Created by ISIS, STFC on 12/06/2017.
  */
-public class EventMessageToEventMessagePOJO implements org.apache.kafka.common.serialization.Deserializer<EventMessagePOJO> {
+public class EventMessageDeserializer implements org.apache.kafka.common.serialization.Deserializer<EventMessagePOJO> {
 
     @Override
     public EventMessagePOJO deserialize(final String topic, final byte[] eventMessageBytes) {
