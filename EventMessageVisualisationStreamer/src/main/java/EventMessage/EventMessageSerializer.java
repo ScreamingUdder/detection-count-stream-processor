@@ -3,19 +3,20 @@ package EventMessage;
 import com.google.flatbuffers.FlatBufferBuilder;
 
 import java.util.ArrayList;
+import java.util.Map;
 
 /**
  * Converts EventMessagePOJO to EventMessage.
  * Created by ISIS, STFC on 07/06/2017.
  */
-public final class EventMessagePOJOToEventMessage {
+public final class EventMessageSerializer implements org.apache.kafka.common.serialization.Serializer<EventMessagePOJO> {
     /**
      * Main method.
      * @param eventMessagePOJO The eventMessagePOJO to be converted.
      * @return Event Message FLatBuffer Byte Array.
      * @throws RuntimeException for invalid values.
      */
-    public static byte[] convert(final EventMessagePOJO eventMessagePOJO) throws RuntimeException {
+    public byte[] serialize(final String topic, final EventMessagePOJO eventMessagePOJO) throws RuntimeException {
 
         // Check for invalid inputs
         if (eventMessagePOJO.getMessageId() < 0) {
@@ -44,6 +45,16 @@ public final class EventMessagePOJOToEventMessage {
             builder.finish(eventMessage);
             return builder.sizedByteArray();
         }
+    }
+
+    @Override
+    public void close() {
+
+    }
+
+    @Override
+    public void configure(final Map map, final boolean b) {
+
     }
 
 }
