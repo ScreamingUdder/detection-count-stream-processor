@@ -15,15 +15,17 @@ import static org.junit.Assert.assertNotNull;
  * Created by ISIS, STFC on 07/06/2017.
  */
 @SuppressWarnings("checkstyle:javadocmethod")
-public class EventMessagePOJOToEventMessageTest {
+public class EventMessageSerializerTest {
     private static final int DEFAULT_MESSAGE_ID = 0;
     private static final int DEFAULT_PULSE_TIME = 0;
     private static final String DEFAULT_TOPIC = "Detection Events";
     private EventMessagePOJO eventMessagePOJO;
+    private EventMessageSerializer eventMessageSerializer;
 
     @Before
     public void setUp() throws Exception {
         eventMessagePOJO = new EventMessagePOJO(DEFAULT_MESSAGE_ID, DEFAULT_PULSE_TIME);
+        eventMessageSerializer = new EventMessageSerializer();
     }
 
     @Rule
@@ -33,19 +35,19 @@ public class EventMessagePOJOToEventMessageTest {
     public void runtimeExceptionWhenMessageIdNegative() {
         exception.expect(RuntimeException.class);
         eventMessagePOJO.setMessageId(-1);
-        EventMessagePOJOToEventMessage.convert(eventMessagePOJO);
+        eventMessageSerializer.serialize(DEFAULT_TOPIC, eventMessagePOJO);
     }
 
     @Test
     public void runtimeExceptionWhenPulseTimeNegative() {
         exception.expect(RuntimeException.class);
         eventMessagePOJO.setPulseTime(-1);
-        EventMessagePOJOToEventMessage.convert(eventMessagePOJO);
+        eventMessageSerializer.serialize(DEFAULT_TOPIC, eventMessagePOJO);
     }
 
     @Test
     public void convertPOJOWithNoDetectorsReturnsByteArray() {
-        byte[] result = EventMessagePOJOToEventMessage.convert(eventMessagePOJO);
+        byte[] result = eventMessageSerializer.serialize(DEFAULT_TOPIC, eventMessagePOJO);
         assertNotNull("Should not be null", result);
     }
 
@@ -54,13 +56,13 @@ public class EventMessagePOJOToEventMessageTest {
         eventMessagePOJO.addDetector(1);
         eventMessagePOJO.addDetector(2);
         eventMessagePOJO.addDetector(3);
-        byte[] result = EventMessagePOJOToEventMessage.convert(eventMessagePOJO);
+        byte[] result = eventMessageSerializer.serialize(DEFAULT_TOPIC, eventMessagePOJO);
         assertNotNull("Should not be null", result);
     }
 
     @Test
     public void getMessageIDCorrectWhenConvertingDefaultPOJO() {
-        byte[] eventMessage = EventMessagePOJOToEventMessage.convert(eventMessagePOJO);
+        byte[] eventMessage = eventMessageSerializer.serialize(DEFAULT_TOPIC, eventMessagePOJO);
         EventMessageDeserializer eventMessageDeserializer = new EventMessageDeserializer();
         EventMessagePOJO result = eventMessageDeserializer.deserialize(DEFAULT_TOPIC, eventMessage);
 
@@ -69,7 +71,7 @@ public class EventMessagePOJOToEventMessageTest {
 
     @Test
     public void getPulseTimeCorrectWhenConvertingDefaultPOJO() {
-        byte[] eventMessage = EventMessagePOJOToEventMessage.convert(eventMessagePOJO);
+        byte[] eventMessage = eventMessageSerializer.serialize(DEFAULT_TOPIC, eventMessagePOJO);
         EventMessageDeserializer eventMessageDeserializer = new EventMessageDeserializer();
         EventMessagePOJO result = eventMessageDeserializer.deserialize(DEFAULT_TOPIC, eventMessage);
 
@@ -78,7 +80,7 @@ public class EventMessagePOJOToEventMessageTest {
 
     @Test
     public void getDetectorsReturnsNullWhenConvertingDefaultPOJO() {
-        byte[] eventMessage = EventMessagePOJOToEventMessage.convert(eventMessagePOJO);
+        byte[] eventMessage = eventMessageSerializer.serialize(DEFAULT_TOPIC, eventMessagePOJO);
         EventMessageDeserializer eventMessageDeserializer = new EventMessageDeserializer();
         EventMessagePOJO result = eventMessageDeserializer.deserialize(DEFAULT_TOPIC, eventMessage);
 
@@ -89,7 +91,7 @@ public class EventMessagePOJOToEventMessageTest {
     public void getDetectorsReturnsCorrectWhenConvertingPOJOWithTwoDetectors() {
         eventMessagePOJO.addDetector(1);
         eventMessagePOJO.addDetector(2);
-        byte[] eventMessage = EventMessagePOJOToEventMessage.convert(eventMessagePOJO);
+        byte[] eventMessage = eventMessageSerializer.serialize(DEFAULT_TOPIC, eventMessagePOJO);
         EventMessageDeserializer eventMessageDeserializer = new EventMessageDeserializer();
         EventMessagePOJO result = eventMessageDeserializer.deserialize(DEFAULT_TOPIC, eventMessage);
 
