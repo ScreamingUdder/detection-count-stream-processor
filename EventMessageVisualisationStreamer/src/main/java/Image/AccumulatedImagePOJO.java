@@ -10,6 +10,7 @@ import static Image.ImageExceptionMessages.*;
  * Created by ISIS, STFC on 27/07/2017.
  */
 public class AccumulatedImagePOJO implements ImageInterface {
+    private long firstPulseTime; // Must be positive
     private long pulseTime; // Must be positive
     private TreeMap image;
     // Assumed to be TreeMap<int, int>. Integer - int interactions are more trouble than they're worth.
@@ -18,8 +19,13 @@ public class AccumulatedImagePOJO implements ImageInterface {
         if (pulseTime < 0) {
             throw new InvalidParameterException(PULSE_TIME_POSITIVE_ERROR_MESSAGE);
         }
+        this.firstPulseTime = pulseTime;
         this.pulseTime = pulseTime;
         image = new TreeMap();
+    }
+
+    public long getFirstPulseTime() {
+        return firstPulseTime;
     }
 
     public long getPulseTime() {
