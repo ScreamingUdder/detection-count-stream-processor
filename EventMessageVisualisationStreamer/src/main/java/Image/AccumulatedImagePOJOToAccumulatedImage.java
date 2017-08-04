@@ -23,7 +23,7 @@ public class AccumulatedImagePOJOToAccumulatedImage {
         for (int i = 0; i < length; i++) {
             int detectorId = (int) keys[i];
             detectors[i] = detectorId;
-            counts[i] = accumulatedImagePOJO.getFrequency(detectorId);
+            counts[i] = (int) accumulatedImagePOJO.getFrequency(detectorId);
         }
 
         // Builder must be initialised first
