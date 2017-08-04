@@ -2,17 +2,19 @@ package Image;
 
 import com.google.flatbuffers.FlatBufferBuilder;
 
+import java.util.Map;
+
 /**
  * Converts AccumulatedImagePOJO to AccumulatedImage
  * Created by ISIS, STFC on 01/08/2017.
  */
-public class AccumulatedImagePOJOToAccumulatedImage {
+public class AccumulatedImageSerializer implements org.apache.kafka.common.serialization.Serializer<AccumulatedImagePOJO> {
     /**
      * Function for converting between AccumulatedImage POJO and Flatbuffers object
      * @param accumulatedImagePOJO The AccumulatedImagePOJO to be converted
      * @return A AccumulatedImage Flatbuffer object, in the form of a byte array
      */
-    public static byte[] convert(final AccumulatedImagePOJO accumulatedImagePOJO) {
+    public byte[] serialize(final String topic, final AccumulatedImagePOJO accumulatedImagePOJO) {
         // Collect detector ids and counts from pojo
         Object[] keys = accumulatedImagePOJO.getImage().navigableKeySet().toArray();
         int length = keys.length;
@@ -41,5 +43,15 @@ public class AccumulatedImagePOJOToAccumulatedImage {
         int accumulatedImage = AccumulatedImage.endAccumulatedImage(builder);
         builder.finish(accumulatedImage);
         return builder.sizedByteArray();
+    }
+
+    @Override
+    public void close() {
+
+    }
+
+    @Override
+    public void configure(final Map map, final boolean b) {
+
     }
 }

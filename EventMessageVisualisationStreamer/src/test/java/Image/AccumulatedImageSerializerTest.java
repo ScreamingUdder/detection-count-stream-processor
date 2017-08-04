@@ -12,12 +12,15 @@ import static org.junit.Assert.assertNotNull;
  * Created by ISIS, STFC on 02/08/2017.
  */
 @SuppressWarnings("checkstyle:javadocmethod")
-public class AccumulatedImagePOJOToAccumulatedImageTest {
+public class AccumulatedImageSerializerTest {
     private static final long DEFAULT_PULSE_TIME = 0L;
+    private static final String DEFAULT_TOPIC = "Detection events.";
     private AccumulatedImagePOJO accumulatedImagePOJO;
+    private AccumulatedImageSerializer accumulatedImageSerializer;
     @Before
     public void setup() {
         accumulatedImagePOJO = new AccumulatedImagePOJO(DEFAULT_PULSE_TIME);
+        accumulatedImageSerializer = new AccumulatedImageSerializer();
     }
 
     @Rule
@@ -25,7 +28,7 @@ public class AccumulatedImagePOJOToAccumulatedImageTest {
 
     @Test
     public void convertPOJOWithNoDetectorsReturnsByteArray() {
-        byte[] result = AccumulatedImagePOJOToAccumulatedImage.convert(accumulatedImagePOJO);
+        byte[] result = accumulatedImageSerializer.serialize(DEFAULT_TOPIC, accumulatedImagePOJO);
         assertNotNull("Should not be null", result);
     }
 
@@ -34,7 +37,7 @@ public class AccumulatedImagePOJOToAccumulatedImageTest {
         accumulatedImagePOJO.incrementFrequency(1);
         accumulatedImagePOJO.incrementFrequency(2);
         accumulatedImagePOJO.incrementFrequency(3);
-        byte[] result = AccumulatedImagePOJOToAccumulatedImage.convert(accumulatedImagePOJO);
+        byte[] result = accumulatedImageSerializer.serialize(DEFAULT_TOPIC, accumulatedImagePOJO);
         assertNotNull("Should not be null", result);
     }
 
