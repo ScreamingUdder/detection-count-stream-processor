@@ -14,8 +14,8 @@ public interface ImageInterface {
     int getImageSize();
 
     TreeMap getImage();
-    int getFrequency(int detector);
-    void setFrequency(int detector, int newFrequency);
-    void incrementFrequency(int detector);
+    long getFrequency(long detector);
+    void setFrequency(long detector, long newFrequency);
+    void incrementFrequency(long detector);
 
 }
