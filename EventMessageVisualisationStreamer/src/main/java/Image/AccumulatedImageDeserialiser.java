@@ -1,45 +1,41 @@
 package Image;
 
-import com.google.flatbuffers.FlatBufferBuilder;
+import java.util.Map;
 
 /**
- * Converts AccumulatedImagePOJO to AccumulatedImage
- * Created by ISIS, STFC on 01/08/2017.
+ * Converts AccumulatedImage to AccumulatedImagePOJO
+ * Created by ISIS, STFC on 04/08/2017.
  */
-public class AccumulatedImagePOJOToAccumulatedImage {
+public class AccumulatedImageDeserialiser implements org.apache.kafka.common.serialization.Deserializer<AccumulatedImagePOJO> {
     /**
-     * Function for converting between AccumulatedImage POJO and Flatbuffers object
-     * @param accumulatedImagePOJO The AccumulatedImagePOJO to be converted
-     * @return A AccumulatedImage Flatbuffer object, in the form of a byte array
+     * Function for converting between AccumulatedImage Flatbuffer and POJO
+     * @param bytes The AccumulatedImage byte array to be converted
+     * @return AccumulatedImagePOJO
      */
-    public static byte[] convert(final AccumulatedImagePOJO accumulatedImagePOJO) {
-        // Collect detector ids and counts from pojo
-        Object[] keys = accumulatedImagePOJO.getImage().navigableKeySet().toArray();
-        int length = keys.length;
-
-        int[] detectors = new int[length];
-        int[] counts = new int[length];
-
-        for (int i = 0; i < length; i++) {
-            int detectorId = (int) keys[i];
-            detectors[i] = detectorId;
-            counts[i] = accumulatedImagePOJO.getFrequency(detectorId);
+    public AccumulatedImagePOJO deserialize(final String topic, final byte[] bytes) {
+        // convert byte array to java flatbuffer object
+        AccumulatedImage accumulatedImage = AccumulatedImage.getRootAsAccumulatedImage(java.nio.ByteBuffer.wrap(bytes));
+        // Assign simple attributes
+        // TODO Make changes in regards to AccumulatedImage changes (issue 21)
+        long pulseTime = accumulatedImage.pulseTime();
+        AccumulatedImagePOJO accumulatedImagePOJO = new AccumulatedImagePOJO(pulseTime);
+        // Add detectors
+        for (int i = 0; i < accumulatedImage.detectorIdLength(); i++) {
+            int detId = (int) accumulatedImage.detectorId(i);
+            int count = (int) accumulatedImage.detectionCount(i);
+            accumulatedImagePOJO.setFrequency(detId, count);
         }
+        return accumulatedImagePOJO;
+    }
 
-        // Builder must be initialised first
-        FlatBufferBuilder builder = new FlatBufferBuilder();
-        // Positions in the byte array must first be calculated for the two arrays
-        int detPos = AccumulatedImage.createDetectorIdVector(builder, detectors);
-        int ctsPos = AccumulatedImage.createDetectionCountVector(builder, counts);
-        AccumulatedImage.startAccumulatedImage(builder);
-        // detectors and counts can only be added after the flatbuffer is started
-        AccumulatedImage.addDetectorId(builder, detPos);
-        AccumulatedImage.addDetectionCount(builder, ctsPos);
-        // Also add pulse time
-        AccumulatedImage.addPulseTime(builder, accumulatedImagePOJO.getPulseTime());
-        // Convert to byte array and return
-        int accumulatedImage = AccumulatedImage.endAccumulatedImage(builder);
-        builder.finish(accumulatedImage);
-        return builder.sizedByteArray();
+    @Override
+    public void close() {
+
+
+    }
+
+    @Override
+    public void configure(final Map map, final boolean b) {
+
     }
 }
