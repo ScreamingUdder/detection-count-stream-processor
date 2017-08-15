@@ -19,8 +19,14 @@ public class AccumulatedImagePOJOTest {
     }
 
     // Pulse time tests.
+
     @Test
-    public void getPulseTimeReturnsCorrectOnDefaultHeatmap() {
+    public void getFirstPulseTimeReturnsCorrectOnImage() {
+        Assert.assertEquals(DEFAULT_PULSE_TIME, accumulatedImagePOJO.getFirstPulseTime());
+    }
+
+    @Test
+    public void getPulseTimeReturnsCorrectOnDefaultImage() {
         Assert.assertEquals(DEFAULT_PULSE_TIME, accumulatedImagePOJO.getPulseTime());
     }
 
@@ -154,6 +160,14 @@ public class AccumulatedImagePOJOTest {
         accumulatedImagePOJO.addFrameImage(frameImage);
 
         Assert.assertEquals(pulseTime, accumulatedImagePOJO.getPulseTime());
+    }
+
+    @Test public void addingFrameImageWithDifferentPulseTimeToDefaultImageDoesNotAffectFirstPulseTime() {
+        long pulseTime = 1L;
+        FrameImage frameImage = new FrameImage(pulseTime);
+        accumulatedImagePOJO.addFrameImage(frameImage);
+
+        Assert.assertEquals(DEFAULT_PULSE_TIME, accumulatedImagePOJO.getFirstPulseTime());
     }
 
     @Test

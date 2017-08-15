@@ -10,6 +10,7 @@ import static Image.ImageExceptionMessages.*;
  * Created by ISIS, STFC on 27/07/2017.
  */
 public class AccumulatedImagePOJO implements ImageInterface {
+    private long firstPulseTime; // Must be positive
     private long pulseTime; // Must be positive
     private TreeMap image;
     // Assumed to be TreeMap<int, int>. Integer - int interactions are more trouble than they're worth.
@@ -18,8 +19,13 @@ public class AccumulatedImagePOJO implements ImageInterface {
         if (pulseTime < 0) {
             throw new InvalidParameterException(PULSE_TIME_POSITIVE_ERROR_MESSAGE);
         }
+        this.firstPulseTime = pulseTime;
         this.pulseTime = pulseTime;
         image = new TreeMap();
+    }
+
+    public long getFirstPulseTime() {
+        return firstPulseTime;
     }
 
     public long getPulseTime() {
@@ -41,14 +47,14 @@ public class AccumulatedImagePOJO implements ImageInterface {
         return image;
     }
 
-    public int getFrequency(int detector) {
+    public long getFrequency(long detector) {
         if (!image.containsKey(detector)) {
             throw new InvalidParameterException(MISSING_KEY_ERROR_MESSAGE);
         }
         return (int) image.get(detector);
     }
 
-    public void setFrequency(int detector, int newFreq) {
+    public void setFrequency(long detector, long newFreq) {
         if (detector < 0) {
             throw new InvalidParameterException(DETECTOR_ID_POSITIVE_ERROR_MESSAGE);
         } else if (newFreq < 0) {
@@ -57,7 +63,7 @@ public class AccumulatedImagePOJO implements ImageInterface {
         image.put(detector,newFreq);
     }
 
-    public void incrementFrequency(int detector) {
+    public void incrementFrequency(long detector) {
         int oldFreq = 0;
         if (image.containsKey(detector)) {
             oldFreq = (int) image.get(detector);
@@ -79,7 +85,7 @@ public class AccumulatedImagePOJO implements ImageInterface {
 
         for (Object detector: frameImage.getImage().keySet()) {
             int detectorId = (int) detector;
-            int newFreq = frameImage.getFrequency(detectorId);
+            long newFreq = frameImage.getFrequency(detectorId);
             if (this.getImage().containsKey(detectorId)) {
                 newFreq += this.getFrequency(detectorId);
             }

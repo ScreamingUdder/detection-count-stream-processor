@@ -14,31 +14,35 @@ public final class AccumulatedImage extends Table {
   public static boolean AccumulatedImageBufferHasIdentifier(ByteBuffer _bb) { return __has_identifier(_bb, "ai33"); }
   public AccumulatedImage __init(int _i, ByteBuffer _bb) { bb_pos = _i; bb = _bb; return this; }
 
-  public long pulseTime() { int o = __offset(4); return o != 0 ? bb.getLong(o + bb_pos) : 0; }
-  public long detectorId(int j) { int o = __offset(6); return o != 0 ? (long)bb.getInt(__vector(o) + j * 4) & 0xFFFFFFFFL : 0; }
-  public int detectorIdLength() { int o = __offset(6); return o != 0 ? __vector_len(o) : 0; }
-  public ByteBuffer detectorIdAsByteBuffer() { return __vector_as_bytebuffer(6, 4); }
-  public long detectionCount(int j) { int o = __offset(8); return o != 0 ? (long)bb.getInt(__vector(o) + j * 4) & 0xFFFFFFFFL : 0; }
-  public int detectionCountLength() { int o = __offset(8); return o != 0 ? __vector_len(o) : 0; }
-  public ByteBuffer detectionCountAsByteBuffer() { return __vector_as_bytebuffer(8, 4); }
+  public long firstPulseTime() { int o = __offset(4); return o != 0 ? bb.getLong(o + bb_pos) : 0; }
+  public long pulseTime() { int o = __offset(6); return o != 0 ? bb.getLong(o + bb_pos) : 0; }
+  public long detectorId(int j) { int o = __offset(8); return o != 0 ? (long)bb.getInt(__vector(o) + j * 4) & 0xFFFFFFFFL : 0; }
+  public int detectorIdLength() { int o = __offset(8); return o != 0 ? __vector_len(o) : 0; }
+  public ByteBuffer detectorIdAsByteBuffer() { return __vector_as_bytebuffer(8, 4); }
+  public long detectionCount(int j) { int o = __offset(10); return o != 0 ? (long)bb.getInt(__vector(o) + j * 4) & 0xFFFFFFFFL : 0; }
+  public int detectionCountLength() { int o = __offset(10); return o != 0 ? __vector_len(o) : 0; }
+  public ByteBuffer detectionCountAsByteBuffer() { return __vector_as_bytebuffer(10, 4); }
 
   public static int createAccumulatedImage(FlatBufferBuilder builder,
+      long first_pulse_time,
       long pulse_time,
       int detector_idOffset,
       int detection_countOffset) {
-    builder.startObject(3);
+    builder.startObject(4);
     AccumulatedImage.addPulseTime(builder, pulse_time);
+    AccumulatedImage.addFirstPulseTime(builder, first_pulse_time);
     AccumulatedImage.addDetectionCount(builder, detection_countOffset);
     AccumulatedImage.addDetectorId(builder, detector_idOffset);
     return AccumulatedImage.endAccumulatedImage(builder);
   }
 
-  public static void startAccumulatedImage(FlatBufferBuilder builder) { builder.startObject(3); }
-  public static void addPulseTime(FlatBufferBuilder builder, long pulseTime) { builder.addLong(0, pulseTime, 0); }
-  public static void addDetectorId(FlatBufferBuilder builder, int detectorIdOffset) { builder.addOffset(1, detectorIdOffset, 0); }
+  public static void startAccumulatedImage(FlatBufferBuilder builder) { builder.startObject(4); }
+  public static void addFirstPulseTime(FlatBufferBuilder builder, long firstPulseTime) { builder.addLong(0, firstPulseTime, 0); }
+  public static void addPulseTime(FlatBufferBuilder builder, long pulseTime) { builder.addLong(1, pulseTime, 0); }
+  public static void addDetectorId(FlatBufferBuilder builder, int detectorIdOffset) { builder.addOffset(2, detectorIdOffset, 0); }
   public static int createDetectorIdVector(FlatBufferBuilder builder, int[] data) { builder.startVector(4, data.length, 4); for (int i = data.length - 1; i >= 0; i--) builder.addInt(data[i]); return builder.endVector(); }
   public static void startDetectorIdVector(FlatBufferBuilder builder, int numElems) { builder.startVector(4, numElems, 4); }
-  public static void addDetectionCount(FlatBufferBuilder builder, int detectionCountOffset) { builder.addOffset(2, detectionCountOffset, 0); }
+  public static void addDetectionCount(FlatBufferBuilder builder, int detectionCountOffset) { builder.addOffset(3, detectionCountOffset, 0); }
   public static int createDetectionCountVector(FlatBufferBuilder builder, int[] data) { builder.startVector(4, data.length, 4); for (int i = data.length - 1; i >= 0; i--) builder.addInt(data[i]); return builder.endVector(); }
   public static void startDetectionCountVector(FlatBufferBuilder builder, int numElems) { builder.startVector(4, numElems, 4); }
   public static int endAccumulatedImage(FlatBufferBuilder builder) {

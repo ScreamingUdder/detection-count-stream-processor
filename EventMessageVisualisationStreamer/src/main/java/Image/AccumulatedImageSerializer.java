@@ -25,7 +25,7 @@ public class AccumulatedImageSerializer implements org.apache.kafka.common.seria
         for (int i = 0; i < length; i++) {
             int detectorId = (int) keys[i];
             detectors[i] = detectorId;
-            counts[i] = accumulatedImagePOJO.getFrequency(detectorId);
+            counts[i] = (int) accumulatedImagePOJO.getFrequency(detectorId);
         }
 
         // Builder must be initialised first
@@ -37,7 +37,8 @@ public class AccumulatedImageSerializer implements org.apache.kafka.common.seria
         // detectors and counts can only be added after the flatbuffer is started
         AccumulatedImage.addDetectorId(builder, detPos);
         AccumulatedImage.addDetectionCount(builder, ctsPos);
-        // Also add pulse time
+        // Also add pulse times
+        AccumulatedImage.addFirstPulseTime(builder, accumulatedImagePOJO.getFirstPulseTime());
         AccumulatedImage.addPulseTime(builder, accumulatedImagePOJO.getPulseTime());
         // Convert to byte array and return
         int accumulatedImage = AccumulatedImage.endAccumulatedImage(builder);
