@@ -38,9 +38,9 @@ public class AccumulatedImageDeserialiserTest {
         int[] counts = new int[length];
 
         for (int i = 0; i < length; i++) {
-            int detectorId = (int) keys[i];
-            detectors[i] = detectorId;
-            counts[i] = accumulatedImagePOJO.getFrequency(detectorId);
+            long detectorId =  (long) keys[i];
+            detectors[i] = (int) detectorId;
+            counts[i] = (int) accumulatedImagePOJO.getFrequency(detectorId);
         }
 
         // Builder must be initialised first
@@ -95,8 +95,9 @@ public class AccumulatedImageDeserialiserTest {
         accumulatedImagePOJO.getFrequency(2);
     }
 
-
-
-    //TODO Add tests for first pulse time once field is added to flatbuffer (issue 21)
-
+    @Test
+    public void getFirstPulseTimeOfAccumulatedImageReturnsDefaultValue() {
+        AccumulatedImagePOJO accumulatedImagePOJO = accumulatedImageDeserialiser.deserialize(DEFAULT_TOPIC, accumulatedImage);
+        Assert.assertEquals(DEFAULT_PULSE_TIME, accumulatedImagePOJO.getFirstPulseTime());
+    }
 }

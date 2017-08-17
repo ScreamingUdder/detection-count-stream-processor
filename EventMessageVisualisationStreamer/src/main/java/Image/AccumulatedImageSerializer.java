@@ -23,8 +23,8 @@ public class AccumulatedImageSerializer implements org.apache.kafka.common.seria
         int[] counts = new int[length];
 
         for (int i = 0; i < length; i++) {
-            int detectorId = (int) keys[i];
-            detectors[i] = detectorId;
+            long detectorId = (long) keys[i];
+            detectors[i] = (int) detectorId;
             counts[i] = (int) accumulatedImagePOJO.getFrequency(detectorId);
         }
 

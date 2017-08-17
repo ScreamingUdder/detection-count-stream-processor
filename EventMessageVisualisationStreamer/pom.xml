@@ -32,6 +32,13 @@
             <artifactId>flatbuffers-java</artifactId>
             <version>1.6.0.3</version>
         </dependency>
+        <!-- https://mvnrepository.com/artifact/org.apache.kafka/kafka-streams -->
+        <dependency>
+            <groupId>org.apache.kafka</groupId>
+            <artifactId>kafka-streams</artifactId>
+            <version>0.10.0.0</version>
+        </dependency>
+
     </dependencies>
 
 

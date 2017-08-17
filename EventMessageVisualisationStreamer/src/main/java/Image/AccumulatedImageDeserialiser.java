@@ -16,9 +16,9 @@ public class AccumulatedImageDeserialiser implements org.apache.kafka.common.ser
         // convert byte array to java flatbuffer object
         AccumulatedImage accumulatedImage = AccumulatedImage.getRootAsAccumulatedImage(java.nio.ByteBuffer.wrap(bytes));
         // Assign simple attributes
-        // TODO Make changes in regards to AccumulatedImage changes (issue 21)
-        long pulseTime = accumulatedImage.pulseTime();
-        AccumulatedImagePOJO accumulatedImagePOJO = new AccumulatedImagePOJO(pulseTime);
+        long firstPulseTime = accumulatedImage.pulseTime();
+        AccumulatedImagePOJO accumulatedImagePOJO = new AccumulatedImagePOJO(firstPulseTime);
+        accumulatedImagePOJO.setPulseTime(accumulatedImage.pulseTime());
         // Add detectors
         for (int i = 0; i < accumulatedImage.detectorIdLength(); i++) {
             int detId = (int) accumulatedImage.detectorId(i);
