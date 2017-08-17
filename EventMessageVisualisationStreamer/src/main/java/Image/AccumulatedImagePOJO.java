@@ -51,7 +51,7 @@ public class AccumulatedImagePOJO implements ImageInterface {
         if (!image.containsKey(detector)) {
             throw new InvalidParameterException(MISSING_KEY_ERROR_MESSAGE);
         }
-        return (int) image.get(detector);
+        return (long) image.get(detector);
     }
 
     public void setFrequency(long detector, long newFreq) {
@@ -64,9 +64,9 @@ public class AccumulatedImagePOJO implements ImageInterface {
     }
 
     public void incrementFrequency(long detector) {
-        int oldFreq = 0;
+        long oldFreq = 0L;
         if (image.containsKey(detector)) {
-            oldFreq = (int) image.get(detector);
+            oldFreq = (long) image.get(detector);
         } else if (detector < 0) {
             throw  new InvalidParameterException(DETECTOR_ID_POSITIVE_ERROR_MESSAGE);
         }
@@ -84,7 +84,7 @@ public class AccumulatedImagePOJO implements ImageInterface {
         this.setPulseTime(frameImage.getPulseTime());
 
         for (Object detector: frameImage.getImage().keySet()) {
-            int detectorId = (int) detector;
+            long detectorId = (long) detector;
             long newFreq = frameImage.getFrequency(detectorId);
             if (this.getImage().containsKey(detectorId)) {
                 newFreq += this.getFrequency(detectorId);
