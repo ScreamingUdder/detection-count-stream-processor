@@ -136,36 +136,36 @@ public class AccumulatedImagePOJOTest {
 
     @Test
     public void addingDefaultFrameImageToDefaultImageDoesNotAffectSizeOrContents() {
-        FrameImage frameImage = new FrameImage(DEFAULT_PULSE_TIME);
-        accumulatedImagePOJO.addFrameImage(frameImage);
+        FrameImagePOJO frameImagePOJO = new FrameImagePOJO(DEFAULT_PULSE_TIME);
+        accumulatedImagePOJO.addFrameImage(frameImagePOJO);
 
         Assert.assertEquals(0, accumulatedImagePOJO.getImageSize());
     }
 
     @Test
     public void addingNonZeroFrameImageToDefaultImageUpdatesValuesCorrectly() {
-        FrameImage frameImage = new FrameImage(DEFAULT_PULSE_TIME);
-        frameImage.incrementFrequency(0);
-        frameImage.incrementFrequency(1);
-        accumulatedImagePOJO.addFrameImage(frameImage);
+        FrameImagePOJO frameImagePOJO = new FrameImagePOJO(DEFAULT_PULSE_TIME);
+        frameImagePOJO.incrementFrequency(0);
+        frameImagePOJO.incrementFrequency(1);
+        accumulatedImagePOJO.addFrameImage(frameImagePOJO);
 
-        Assert.assertEquals(1, frameImage.getFrequency(0));
-        Assert.assertEquals(1, frameImage.getFrequency(1));
+        Assert.assertEquals(1, frameImagePOJO.getFrequency(0));
+        Assert.assertEquals(1, frameImagePOJO.getFrequency(1));
     }
 
     @Test
     public void addingFrameImageWithDifferentPulseTimeToDefaultImageUpdatesValueCorrectly() {
         long pulseTime = 1L;
-        FrameImage frameImage = new FrameImage(pulseTime);
-        accumulatedImagePOJO.addFrameImage(frameImage);
+        FrameImagePOJO frameImagePOJO = new FrameImagePOJO(pulseTime);
+        accumulatedImagePOJO.addFrameImage(frameImagePOJO);
 
         Assert.assertEquals(pulseTime, accumulatedImagePOJO.getPulseTime());
     }
 
     @Test public void addingFrameImageWithDifferentPulseTimeToDefaultImageDoesNotAffectFirstPulseTime() {
         long pulseTime = 1L;
-        FrameImage frameImage = new FrameImage(pulseTime);
-        accumulatedImagePOJO.addFrameImage(frameImage);
+        FrameImagePOJO frameImagePOJO = new FrameImagePOJO(pulseTime);
+        accumulatedImagePOJO.addFrameImage(frameImagePOJO);
 
         Assert.assertEquals(DEFAULT_PULSE_TIME, accumulatedImagePOJO.getFirstPulseTime());
     }
@@ -176,10 +176,10 @@ public class AccumulatedImagePOJOTest {
         accumulatedImagePOJO.incrementFrequency(1);
         accumulatedImagePOJO.incrementFrequency(2);
 
-        FrameImage frameImage = new FrameImage(DEFAULT_PULSE_TIME);
-        frameImage.incrementFrequency(0);
-        frameImage.incrementFrequency(1);
-        accumulatedImagePOJO.addFrameImage(frameImage);
+        FrameImagePOJO frameImagePOJO = new FrameImagePOJO(DEFAULT_PULSE_TIME);
+        frameImagePOJO.incrementFrequency(0);
+        frameImagePOJO.incrementFrequency(1);
+        accumulatedImagePOJO.addFrameImage(frameImagePOJO);
 
         Assert.assertEquals(2, accumulatedImagePOJO.getFrequency(0));
         Assert.assertEquals(2, accumulatedImagePOJO.getFrequency(1));
