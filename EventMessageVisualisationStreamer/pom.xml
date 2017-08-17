@@ -38,7 +38,11 @@
             <artifactId>kafka-streams</artifactId>
             <version>0.10.0.0</version>
         </dependency>
-
+        <dependency>
+            <groupId>org.rocksdb</groupId>
+            <artifactId>rocksdbjni</artifactId>
+            <version>4.9.0</version>
+        </dependency>
     </dependencies>
 
 
