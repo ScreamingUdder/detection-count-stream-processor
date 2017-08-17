@@ -100,9 +100,4 @@ public class AccumulatedImageDeserialiserTest {
         AccumulatedImagePOJO accumulatedImagePOJO = accumulatedImageDeserialiser.deserialize(DEFAULT_TOPIC, accumulatedImage);
         Assert.assertEquals(DEFAULT_PULSE_TIME, accumulatedImagePOJO.getFirstPulseTime());
     }
-
-
-
-    //TODO Add tests for first pulse time once field is added to flatbuffer (issue 21)
-
 }
