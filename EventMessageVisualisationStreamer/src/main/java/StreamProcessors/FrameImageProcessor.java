@@ -25,9 +25,9 @@ public class FrameImageProcessor implements Processor<Long, FrameImagePOJO> {
     public void process(Long pulse, FrameImagePOJO frameImagePOJO) {
         if (accumulatedImagePOJO == null) {
             accumulatedImagePOJO = new AccumulatedImagePOJO(frameImagePOJO.getPulseTime());
-        } else {
-            accumulatedImagePOJO.addFrameImage(frameImagePOJO);
         }
+
+        accumulatedImagePOJO.addFrameImage(frameImagePOJO);
 
         context.forward(accumulatedImagePOJO.getPulseTime(), accumulatedImagePOJO);
         context.commit();
