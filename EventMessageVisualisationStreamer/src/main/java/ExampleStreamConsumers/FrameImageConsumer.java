@@ -14,6 +14,11 @@ import java.util.Properties;
  */
 public final class FrameImageConsumer {
 
+    private static final int DEFAULT_TIMEOUT = 100;
+    private static final int RECORD_LIMIT = 1000;
+    private static final int DETECTOR_LIMIT = 20;
+    // How many detector ids to print out
+
     private FrameImageConsumer() {
 
     }
@@ -47,8 +52,8 @@ public final class FrameImageConsumer {
         consumer.subscribe(Arrays.asList(topicName));
 
         System.out.println("Subscribed to topic " + topicName);
-        for (int i = 0; i < 10000; i++) {
-            ConsumerRecords<String, FrameImagePOJO> records = consumer.poll(100);
+        for (int i = 0; i < RECORD_LIMIT; i++) {
+            ConsumerRecords<String, FrameImagePOJO> records = consumer.poll(DEFAULT_TIMEOUT);
             for (ConsumerRecord<String, FrameImagePOJO> record: records) {
 
                 FrameImagePOJO frameImagePOJO = record.value();
@@ -57,10 +62,16 @@ public final class FrameImageConsumer {
                 String mapString = "Detectors: ";
                 Object[] keys = frameImagePOJO.getImage().navigableKeySet().toArray();
 
+                int z = 0;
+
                 for (Object key: keys) {
+                    if (z >= DETECTOR_LIMIT) {
+                        break;
+                    }
                     long detectorId = (long) key;
                     long count = frameImagePOJO.getFrequency(detectorId);
                     mapString += detectorId + ":" + count + ", ";
+                    z++;
                 }
 
                 System.out.println(mapString);

@@ -14,6 +14,11 @@ import java.util.Properties;
  */
 public final class ExampleAccumulatedImageConsumer {
 
+    private static final int DEFAULT_TIMEOUT = 100;
+    private static final int RECORD_LIMIT = 1000;
+    private static final int DETECTOR_LIMIT = 20;
+    // How many detector ids to print out
+
     private ExampleAccumulatedImageConsumer() {
 
     }
@@ -47,8 +52,8 @@ public final class ExampleAccumulatedImageConsumer {
         consumer.subscribe(Arrays.asList(topicName));
 
         System.out.println("Subscribed to topic " + topicName);
-        for (int i = 0; i < 10000; i++) {
-            ConsumerRecords<String, AccumulatedImagePOJO> records = consumer.poll(100);
+        for (int i = 0; i < RECORD_LIMIT; i++) {
+            ConsumerRecords<String, AccumulatedImagePOJO> records = consumer.poll(DEFAULT_TIMEOUT);
             for (ConsumerRecord<String, AccumulatedImagePOJO> record: records) {
 
                 AccumulatedImagePOJO accumulatedImagePOJO = record.value();
@@ -57,11 +62,17 @@ public final class ExampleAccumulatedImageConsumer {
                 System.out.println("Pulse Time: " + accumulatedImagePOJO.getPulseTime());
                 String mapString = "Detectors: ";
                 Object[] keys = accumulatedImagePOJO.getImage().navigableKeySet().toArray();
+                
+                int z = 0;
 
                 for (Object key: keys) {
+                    if (z >= DETECTOR_LIMIT) {
+                        break;
+                    }
                     long detectorId = (long) key;
                     long count = accumulatedImagePOJO.getFrequency(detectorId);
                     mapString += detectorId + ":" + count + ", ";
+                    z++;
                 }
 
                 System.out.println(mapString);
