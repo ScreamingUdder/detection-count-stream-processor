@@ -6,15 +6,15 @@ import java.util.TreeMap;
 import static Image.ImageExceptionMessages.*;
 
 /**
- * FrameImagePOJO Java Object for storing heatmap data in a static context
+ * PulseImagePOJO Java Object for storing heatmap data in a static context
  * Created by ISIS, STFC on 27/07/2017.
  */
-public class FrameImagePOJO implements ImageInterface {
+public class PulseImagePOJO implements ImageInterface {
     private long pulseTime; // Must be positive
     private TreeMap image;
     // Assumed to be TreeMap<int, int>. Integer - int interactions are more trouble than they're worth.
 
-    public FrameImagePOJO(Long pulseTime) {
+    public PulseImagePOJO(Long pulseTime) {
         if (pulseTime < 0) {
             throw new InvalidParameterException(PULSE_TIME_POSITIVE_ERROR_MESSAGE);
         }

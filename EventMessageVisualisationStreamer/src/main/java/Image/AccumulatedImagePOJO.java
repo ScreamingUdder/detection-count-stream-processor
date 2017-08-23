@@ -76,16 +76,16 @@ public class AccumulatedImagePOJO implements ImageInterface {
     /**
      * Function to take a current frame image and update the image frequencies.
      * Accumulated image pulse time is changed to the frame image's value.
-     * @param frameImagePOJO The frame image must be the same size as the accumulated image
+     * @param pulseImagePOJO The frame image must be the same size as the accumulated image
      * and its indexes must correspond to the same detectors.
      * Passed frame image is assumed to be most recent, or at least more recent than the current pulse tine.
      */
-    public void addFrameImage(FrameImagePOJO frameImagePOJO) {
-        this.setPulseTime(frameImagePOJO.getPulseTime());
+    public void addFrameImage(PulseImagePOJO pulseImagePOJO) {
+        this.setPulseTime(pulseImagePOJO.getPulseTime());
 
-        for (Object detector: frameImagePOJO.getImage().keySet()) {
+        for (Object detector: pulseImagePOJO.getImage().keySet()) {
             long detectorId = (long) detector;
-            long newFreq = frameImagePOJO.getFrequency(detectorId);
+            long newFreq = pulseImagePOJO.getFrequency(detectorId);
             if (this.getImage().containsKey(detectorId)) {
                 newFreq += this.getFrequency(detectorId);
             }

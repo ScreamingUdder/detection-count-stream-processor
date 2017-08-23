@@ -10,28 +10,28 @@ import org.junit.rules.ExpectedException;
 import java.security.InvalidParameterException;
 
 /**
- * Unit tests for FrameImageDeserialiser.
+ * Unit tests for PulseImageDeserialiser.
  * Created by ISIS, STFC on 04/08/2017.
  */
 @SuppressWarnings("checkstyle:javadocmethod")
-public class FrameImageDeserialiserTest {
+public class PulseImageDeserialiserTest {
     private static final long DEFAULT_PULSE_TIME = 0L;
-    private FrameImagePOJO frameImagePOJO;
+    private PulseImagePOJO pulseImagePOJO;
     private final int DEFAULT_DETECTOR_ZERO_FREQUENCY = 1;
     private final int DEFAULT_DETECTOR_ONE_FREQUENCY = 2;
     private final String DEFAULT_TOPIC = "Detection Events";
     private byte[] pulseImage;
-    private FrameImageDeserialiser frameImageDeserialiser;
+    private PulseImageDeserialiser pulseImageDeserialiser;
     @Before
     public void setup() {
-        frameImagePOJO = new FrameImagePOJO(DEFAULT_PULSE_TIME);
-        frameImagePOJO.setFrequency(0, DEFAULT_DETECTOR_ZERO_FREQUENCY);
-        frameImagePOJO.setFrequency(1, DEFAULT_DETECTOR_ONE_FREQUENCY);
+        pulseImagePOJO = new PulseImagePOJO(DEFAULT_PULSE_TIME);
+        pulseImagePOJO.setFrequency(0, DEFAULT_DETECTOR_ZERO_FREQUENCY);
+        pulseImagePOJO.setFrequency(1, DEFAULT_DETECTOR_ONE_FREQUENCY);
 
         // Serialiser is not used to prevent circular references
 
         // Collect detector ids and counts from pojo
-        Object[] keys = frameImagePOJO.getImage().navigableKeySet().toArray();
+        Object[] keys = pulseImagePOJO.getImage().navigableKeySet().toArray();
         int length = keys.length;
 
         int[] detectors = new int[length];
@@ -40,7 +40,7 @@ public class FrameImageDeserialiserTest {
         for (int i = 0; i < length; i++) {
             long detectorId =  (long) keys[i];
             detectors[i] = (int) detectorId;
-            counts[i] = (int) frameImagePOJO.getFrequency(detectorId);
+            counts[i] = (int) pulseImagePOJO.getFrequency(detectorId);
         }
 
         // Builder must be initialised first
@@ -53,13 +53,13 @@ public class FrameImageDeserialiserTest {
         PulseImage.addDetectorId(builder, detPos);
         PulseImage.addDetectionCount(builder, ctsPos);
         // Also add pulse time
-        PulseImage.addPulseTime(builder, frameImagePOJO.getPulseTime());
+        PulseImage.addPulseTime(builder, pulseImagePOJO.getPulseTime());
         // Convert to byte array and return
         int pulseImageInt = PulseImage.endPulseImage(builder);
         builder.finish(pulseImageInt);
         pulseImage = builder.sizedByteArray();
 
-        frameImageDeserialiser = new FrameImageDeserialiser();
+        pulseImageDeserialiser = new PulseImageDeserialiser();
     }
 
     @Rule
@@ -67,31 +67,31 @@ public class FrameImageDeserialiserTest {
 
     @Test
     public void getPulseTimeAfterConvertingDefaultImageReturnsDefaultValue() {
-        FrameImagePOJO frameImagePOJO = frameImageDeserialiser.deserialize(DEFAULT_TOPIC, pulseImage);
-        Assert.assertEquals(DEFAULT_PULSE_TIME, frameImagePOJO.getPulseTime());
+        PulseImagePOJO pulseImagePOJO = pulseImageDeserialiser.deserialize(DEFAULT_TOPIC, pulseImage);
+        Assert.assertEquals(DEFAULT_PULSE_TIME, pulseImagePOJO.getPulseTime());
     }
 
     @Test
     public void getImageSizeAfterConvertingDefaultImageReturnsTwo() {
-        FrameImagePOJO frameImagePOJO = frameImageDeserialiser.deserialize(DEFAULT_TOPIC, pulseImage);
-        Assert.assertEquals(2, frameImagePOJO.getImageSize());
+        PulseImagePOJO pulseImagePOJO = pulseImageDeserialiser.deserialize(DEFAULT_TOPIC, pulseImage);
+        Assert.assertEquals(2, pulseImagePOJO.getImageSize());
     }
 
     @Test
     public void getFrequencyOfDetectorZeroAfterConvertingDefaultImageReturnsDefaultValue() {
-        FrameImagePOJO frameImagePOJO = frameImageDeserialiser.deserialize(DEFAULT_TOPIC, pulseImage);
-        Assert.assertEquals(DEFAULT_DETECTOR_ZERO_FREQUENCY, frameImagePOJO.getFrequency(0));
+        PulseImagePOJO pulseImagePOJO = pulseImageDeserialiser.deserialize(DEFAULT_TOPIC, pulseImage);
+        Assert.assertEquals(DEFAULT_DETECTOR_ZERO_FREQUENCY, pulseImagePOJO.getFrequency(0));
     }
 
     @Test
     public void getFrequencyOfDetectorOneAfterConvertingDefaultImageReturnsDefaultValue() {
-        FrameImagePOJO frameImagePOJO = frameImageDeserialiser.deserialize(DEFAULT_TOPIC, pulseImage);
-        Assert.assertEquals(DEFAULT_DETECTOR_ONE_FREQUENCY, frameImagePOJO.getFrequency(1));
+        PulseImagePOJO pulseImagePOJO = pulseImageDeserialiser.deserialize(DEFAULT_TOPIC, pulseImage);
+        Assert.assertEquals(DEFAULT_DETECTOR_ONE_FREQUENCY, pulseImagePOJO.getFrequency(1));
     }
 
     @Test(expected = InvalidParameterException.class)
     public void getFrequencyOfDetectorTwoAfterConvertingDefaultImageThrowsInvalidParameterException() {
-        FrameImagePOJO frameImagePOJO = frameImageDeserialiser.deserialize(DEFAULT_TOPIC, pulseImage);
-        frameImagePOJO.getFrequency(2);
+        PulseImagePOJO pulseImagePOJO = pulseImageDeserialiser.deserialize(DEFAULT_TOPIC, pulseImage);
+        pulseImagePOJO.getFrequency(2);
     }
 }
