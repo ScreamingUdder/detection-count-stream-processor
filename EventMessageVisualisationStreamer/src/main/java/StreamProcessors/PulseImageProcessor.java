@@ -1,7 +1,7 @@
 package StreamProcessors;
 
 import Image.AccumulatedImagePOJO;
-import Image.FrameImagePOJO;
+import Image.PulseImagePOJO;
 import org.apache.kafka.streams.processor.Processor;
 import org.apache.kafka.streams.processor.ProcessorContext;
 
@@ -9,7 +9,7 @@ import org.apache.kafka.streams.processor.ProcessorContext;
 /**
  * Created by ISIS, STFC on 14/08/2017.
  */
-public class FrameImageProcessor implements Processor<Long, FrameImagePOJO> {
+public class PulseImageProcessor implements Processor<Long, PulseImagePOJO> {
 
     private ProcessorContext context;
     private AccumulatedImagePOJO accumulatedImagePOJO;
@@ -22,7 +22,7 @@ public class FrameImageProcessor implements Processor<Long, FrameImagePOJO> {
     }
 
     @Override
-    public void process(Long pulse, FrameImagePOJO frameImagePOJO) {
+    public void process(Long pulse, PulseImagePOJO frameImagePOJO) {
         if (accumulatedImagePOJO == null) {
             accumulatedImagePOJO = new AccumulatedImagePOJO(frameImagePOJO.getPulseTime());
         }
