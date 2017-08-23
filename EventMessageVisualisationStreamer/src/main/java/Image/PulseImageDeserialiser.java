@@ -3,27 +3,27 @@ package Image;
 import java.util.Map;
 
 /**
- * Converts PulseImage to FrameImagePOJO
+ * Converts PulseImage to PulseImagePOJO
  * Created by ISIS, STFC on 04/08/2017.
  */
-public class FrameImageDeserialiser implements org.apache.kafka.common.serialization.Deserializer<FrameImagePOJO> {
+public class PulseImageDeserialiser implements org.apache.kafka.common.serialization.Deserializer<PulseImagePOJO> {
     /**
-     * Function for converting between PulseImage Flatbuffer and FrameImage POJO
+     * Function for converting between PulseImage Flatbuffer and PulseImage POJO
      * @param bytes The PulseImage byte array to be converted
      * @return PulseImagePOJO
      */
-    public FrameImagePOJO deserialize(final String topic, final byte[] bytes) {
+    public PulseImagePOJO deserialize(final String topic, final byte[] bytes) {
         // convert byte array to java flatbuffer object
         PulseImage pulseImage = PulseImage.getRootAsPulseImage(java.nio.ByteBuffer.wrap(bytes));
-        // Assign simple attributes
-        FrameImagePOJO frameImagePOJO = new FrameImagePOJO(pulseImage.pulseTime());
+        // Assign simple attribute s
+        PulseImagePOJO pulseImagePOJO = new PulseImagePOJO(pulseImage.pulseTime());
         // Add detectors
         for (int i = 0; i < pulseImage.detectorIdLength(); i++) {
             int detId = (int) pulseImage.detectorId(i);
             int count = (int) pulseImage.detectionCount(i);
-            frameImagePOJO.setFrequency(detId, count);
+            pulseImagePOJO.setFrequency(detId, count);
         }
-        return frameImagePOJO;
+        return pulseImagePOJO;
     }
 
     @Override
