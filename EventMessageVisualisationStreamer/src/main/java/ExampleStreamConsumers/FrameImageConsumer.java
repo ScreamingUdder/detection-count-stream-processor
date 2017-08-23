@@ -1,7 +1,7 @@
 package ExampleStreamConsumers;
 
-import Image.FrameImageDeserialiser;
-import Image.FrameImagePOJO;
+import Image.PulseImageDeserialiser;
+import Image.PulseImagePOJO;
 import org.apache.kafka.clients.consumer.ConsumerRecord;
 import org.apache.kafka.clients.consumer.ConsumerRecords;
 import org.apache.kafka.clients.consumer.KafkaConsumer;
@@ -15,7 +15,7 @@ import java.util.Properties;
 public final class FrameImageConsumer {
 
     private static final int DEFAULT_TIMEOUT = 100;
-    private static final int RECORD_LIMIT = 1000;
+    private static final int RECORD_LIMIT = 10000;
     private static final int DETECTOR_LIMIT = 20;
     // How many detector ids to print out
 
@@ -40,23 +40,25 @@ public final class FrameImageConsumer {
         Properties props = new Properties();
 
         props.put("bootstrap.servers", "sakura:9092");
-        props.put("group.id", "ExampleFrameImageConsumer");
-        props.put("enable.auto.commit", "true");
-        props.put("auto.commit.interval.ms", "100");
+        props.put("group.id", "test");
+        props.put("enable.auto.commit", "false");
+        props.put("auto.offset.reset", "latest");
+        //props.put("auto.commit.interval.ms", "100");
+        props.put("enable.auto.offset.store", "false");
         props.put("session.timeout.ms", "30000");
         props.put("key.deserializer", "org.apache.kafka.common.serialization.LongDeserializer");
-        props.put("value.deserializer", FrameImageDeserialiser.class.getName());
+        props.put("value.deserializer", PulseImageDeserialiser.class.getName());
 
-        KafkaConsumer<String, FrameImagePOJO> consumer = new KafkaConsumer<>(props);
+        KafkaConsumer<String, PulseImagePOJO> consumer = new KafkaConsumer<>(props);
 
         consumer.subscribe(Arrays.asList(topicName));
 
         System.out.println("Subscribed to topic " + topicName);
         for (int i = 0; i < RECORD_LIMIT; i++) {
-            ConsumerRecords<String, FrameImagePOJO> records = consumer.poll(DEFAULT_TIMEOUT);
-            for (ConsumerRecord<String, FrameImagePOJO> record: records) {
+            ConsumerRecords<String, PulseImagePOJO> records = consumer.poll(DEFAULT_TIMEOUT);
+            for (ConsumerRecord<String, PulseImagePOJO> record: records) {
 
-                FrameImagePOJO frameImagePOJO = record.value();
+                PulseImagePOJO frameImagePOJO = record.value();
 
                 System.out.println("Pulse Time: " + frameImagePOJO.getPulseTime());
                 String mapString = "Detectors: ";

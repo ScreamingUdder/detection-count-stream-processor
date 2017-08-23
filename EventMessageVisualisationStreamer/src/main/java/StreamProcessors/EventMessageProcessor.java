@@ -1,7 +1,7 @@
 package StreamProcessors;
 
 import EventMessage.EventMessagePOJO;
-import Image.FrameImagePOJO;
+import Image.PulseImagePOJO;
 import org.apache.kafka.streams.processor.Processor;
 import org.apache.kafka.streams.processor.ProcessorContext;
 
@@ -24,7 +24,7 @@ public class EventMessageProcessor implements Processor<String, EventMessagePOJO
 
     @Override
     public void process(String key, EventMessagePOJO eventMessage) {
-        FrameImagePOJO frameImagePOJO = new FrameImagePOJO(eventMessage.getPulseTime());
+        PulseImagePOJO frameImagePOJO = new PulseImagePOJO(eventMessage.getPulseTime());
         ArrayList<Integer> detections = eventMessage.getDetectors();
 
         for (int detector : detections) {

@@ -16,7 +16,7 @@ public final class ExampleAccumulatedImageConsumer {
 
     private static final int DEFAULT_TIMEOUT = 100;
     private static final int RECORD_LIMIT = 1000;
-    private static final int DETECTOR_LIMIT = 20;
+    private static final int DETECTOR_LIMIT = 200;
     // How many detector ids to print out
 
     private ExampleAccumulatedImageConsumer() {
@@ -41,8 +41,10 @@ public final class ExampleAccumulatedImageConsumer {
 
         props.put("bootstrap.servers", "sakura:9092");
         props.put("group.id", "test");
-        props.put("enable.auto.commit", "true");
-        props.put("auto.commit.interval.ms", "100");
+        props.put("enable.auto.commit", "false");
+        props.put("auto.offset.reset", "latest");
+        //props.put("auto.commit.interval.ms", "100");
+        props.put("enable.auto.offset.store", "false");
         props.put("session.timeout.ms", "30000");
         props.put("key.deserializer", "org.apache.kafka.common.serialization.LongDeserializer");
         props.put("value.deserializer", AccumulatedImageDeserialiser.class.getName());
