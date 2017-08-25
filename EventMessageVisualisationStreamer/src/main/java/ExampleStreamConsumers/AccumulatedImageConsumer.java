@@ -1,7 +1,7 @@
 package ExampleStreamConsumers;
 
-import Image.PulseImageDeserialiser;
-import Image.PulseImagePOJO;
+import Image.AccumulatedImageDeserialiser;
+import Image.AccumulatedImagePOJO;
 import org.apache.kafka.clients.consumer.ConsumerRecord;
 import org.apache.kafka.clients.consumer.ConsumerRecords;
 import org.apache.kafka.clients.consumer.KafkaConsumer;
@@ -12,20 +12,20 @@ import java.util.Properties;
 /**
  * Kafka Consumer For Detection Event Messages.
  */
-public final class FrameImageConsumer {
+public final class AccumulatedImageConsumer {
 
     private static final int DEFAULT_TIMEOUT = 100;
-    private static final int RECORD_LIMIT = 10000;
-    private static final int DETECTOR_LIMIT = 20;
+    private static final int RECORD_LIMIT = 1000;
+    private static final int DETECTOR_LIMIT = 200;
     // How many detector ids to print out
 
-    private FrameImageConsumer() {
+    private AccumulatedImageConsumer() {
 
     }
     /**
      * Main function for kafka consumer.
      * <p>
-     * Connects through sakura to collect all frame images and display the accumulated image generated from them.
+     * Connects through sakura to collect all event messages from the specified topic,and display a frame image generated from it.
      * </p>
      * @param args Topic name to consume from.
      * @throws Exception Generic exception
@@ -43,27 +43,27 @@ public final class FrameImageConsumer {
         props.put("group.id", "test");
         props.put("enable.auto.commit", "false");
         props.put("auto.offset.reset", "latest");
-        //props.put("auto.commit.interval.ms", "100");
         props.put("enable.auto.offset.store", "false");
         props.put("session.timeout.ms", "30000");
         props.put("key.deserializer", "org.apache.kafka.common.serialization.LongDeserializer");
-        props.put("value.deserializer", PulseImageDeserialiser.class.getName());
+        props.put("value.deserializer", AccumulatedImageDeserialiser.class.getName());
 
-        KafkaConsumer<String, PulseImagePOJO> consumer = new KafkaConsumer<>(props);
+        KafkaConsumer<String, AccumulatedImagePOJO> consumer = new KafkaConsumer<>(props);
 
         consumer.subscribe(Arrays.asList(topicName));
 
         System.out.println("Subscribed to topic " + topicName);
         for (int i = 0; i < RECORD_LIMIT; i++) {
-            ConsumerRecords<String, PulseImagePOJO> records = consumer.poll(DEFAULT_TIMEOUT);
-            for (ConsumerRecord<String, PulseImagePOJO> record: records) {
+            ConsumerRecords<String, AccumulatedImagePOJO> records = consumer.poll(DEFAULT_TIMEOUT);
+            for (ConsumerRecord<String, AccumulatedImagePOJO> record: records) {
 
-                PulseImagePOJO frameImagePOJO = record.value();
+                AccumulatedImagePOJO accumulatedImagePOJO = record.value();
 
-                System.out.println("Pulse Time: " + frameImagePOJO.getPulseTime());
+                System.out.println("First Pulse Time: " + accumulatedImagePOJO.getFirstPulseTime());
+                System.out.println("Pulse Time: " + accumulatedImagePOJO.getPulseTime());
                 String mapString = "Detectors: ";
-                Object[] keys = frameImagePOJO.getImage().navigableKeySet().toArray();
-
+                Object[] keys = accumulatedImagePOJO.getImage().navigableKeySet().toArray();
+                
                 int z = 0;
 
                 for (Object key: keys) {
@@ -71,7 +71,7 @@ public final class FrameImageConsumer {
                         break;
                     }
                     long detectorId = (long) key;
-                    long count = frameImagePOJO.getFrequency(detectorId);
+                    long count = accumulatedImagePOJO.getFrequency(detectorId);
                     mapString += detectorId + ":" + count + ", ";
                     z++;
                 }
