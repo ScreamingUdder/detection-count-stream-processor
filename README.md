@@ -6,6 +6,8 @@ Please use [the ScreamingUdder Checkstyle](https://github.com/ScreamingUdder/che
 
 Developed with TDD
 
+An example appplication for using this processor to process SANS2D data is hosted at [detection-count-visualisation](https://github.com/ScreamingUdder/detection-count-visualisation).
+
 ## How to import into IntelliJ
 
 In IntelliJ IDE:
