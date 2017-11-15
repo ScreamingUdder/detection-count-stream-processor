@@ -17,3 +17,21 @@ In IntelliJ IDE:
 * Select 'Import project from external model', select 'Maven, then click 'Next'
 * Click 'Next' on the next three pages
 * Finally, click 'Finish'
+
+## Run
+
+Can be run with the following options:
+```
+--app-id [-app] - Unique identifier for the application
+--bootstrap [-b] - Kafka broker and port to connect to
+--zookeeper [-z] - Zookeeper node and port to connect to
+--source-topic [-src] - Kafka topic to receive event message from
+--pulse-topic [-pt] - Output topic for the output of EventMessageProcessor
+--accumulated-topic [-at] - Output topic for the output of PulseImageProcessor
+--process-pulse-images [-ppi] - Boolean for whether pulse images created by the EventMessageProcessor are further processed by PulseImageProcessor, true by default
+```
+
+For example, run jar (can be downloaded from releases page):
+```
+java -jar EventMessageVisualisationStreamer.jar -b localhost:9092 -z localhost:2181 -src VIZ_events -pt VIZ_eventSum -at VIZ_eventSumAccumulated
+```
