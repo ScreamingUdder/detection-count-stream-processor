@@ -18,7 +18,7 @@
 
     <groupId>com.github.screamingudder</groupId>
     <artifactId>EventMessageVisualisationStreamer</artifactId>
-    <version>1.0-SNAPSHOT</version>
+    <version>1.0</version>
     <dependencies>
         <dependency>
             <groupId>junit</groupId>
